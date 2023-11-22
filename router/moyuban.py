@@ -2,9 +2,9 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from fastapi import APIRouter
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import JSONResponse, PlainTextResponse
 
-from .moyu_config import get_holidays, check_if_need_update_holidays
+from .moyu_config import MoyuConfigHelper
 from .moyu_config import MO_YU_TEMPLATE, MO_YU_TEMPLATE_DAY_N, TZ, WEEK_DAYS
 
 router = APIRouter()
@@ -24,10 +24,15 @@ def get_salaryday(now: datetime, day: int) -> int:
     ).days
 
 
+@router.get("/api/moyu_info", response_class=JSONResponse, tags=["moyu"])
+def get_moyu_info() -> dict:
+    return MoyuConfigHelper.get_moyu_config_info()
+
+
 @router.get("/api/moyu", response_class=PlainTextResponse, tags=["moyu"])
 def get_moyu_message(day: int = 0) -> str:
 
-    check_if_need_update_holidays()
+    MoyuConfigHelper.check_if_need_update_holidays()
 
     res = ""
 
@@ -61,7 +66,7 @@ def get_moyu_message(day: int = 0) -> str:
     )
     res += moyu_template
 
-    for holiday in get_holidays():
+    for holiday in MoyuConfigHelper.get_holidays():
         f_date = holiday.date
         template = holiday.template
         if now > f_date:

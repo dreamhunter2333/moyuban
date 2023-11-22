@@ -47,46 +47,56 @@ WEEK_DAYS = "一二三四五六日"
 
 
 HOLIDAYS = Holidays([])
-
-
-def get_holidays() -> List[Holiday]:
-    return HOLIDAYS.root
-
-
-def load_holidays() -> None:
-    if not os.path.exists(settings.holidays_file):
-        return
-    global HOLIDAYS
-    try:
-        with open(settings.holidays_file, "r") as f:
-            HOLIDAYS = Holidays.model_validate_json(f.read())
-        _logger.info(f"load holidays success: {HOLIDAYS}")
-    except Exception as e:
-        _logger.exception("load holidays error: %s", e)
-
-
-def load_holidays_from_url() -> None:
-    global HOLIDAYS
-    try:
-        res = requests.get(settings.holidays_file_url)
-        if res.status_code != 200:
-            _logger.error(
-                f"load holidays from url error: {res.status_code}")
-            return
-        HOLIDAYS = Holidays.model_validate_json(res.text)
-        _logger.info(f"load holidays from url success: {HOLIDAYS}")
-    except Exception as e:
-        _logger.exception("load holidays from url error: %s", e)
-
-
-load_holidays()
-load_holidays_from_url()
-
-
 last_update_time = datetime.now()
 
 
-def check_if_need_update_holidays() -> None:
-    delta = datetime.now() - last_update_time
-    if delta.days > settings.holidays_lazy_update_interval_days:
-        load_holidays_from_url()
+class MoyuConfigHelper:
+
+    @classmethod
+    def get_holidays(cls) -> List[Holiday]:
+        return HOLIDAYS.root
+
+    @classmethod
+    def load_holidays(cls) -> None:
+        if not os.path.exists(settings.holidays_file):
+            return
+        global HOLIDAYS
+        try:
+            with open(settings.holidays_file, "r") as f:
+                HOLIDAYS = Holidays.model_validate_json(f.read())
+            _logger.info(f"load holidays success: {HOLIDAYS}")
+        except Exception as e:
+            _logger.exception("load holidays error: %s", e)
+
+    @classmethod
+    def load_holidays_from_url(cls) -> None:
+        global HOLIDAYS, last_update_time
+        try:
+            res = requests.get(settings.holidays_file_url)
+            if res.status_code != 200:
+                _logger.error(
+                    f"load holidays from url error: {res.status_code}")
+                return
+            HOLIDAYS = Holidays.model_validate_json(res.text)
+            _logger.info(f"load holidays from url success: {HOLIDAYS}")
+            last_update_time = datetime.now()
+        except Exception as e:
+            _logger.exception("load holidays from url error: %s", e)
+
+    @classmethod
+    def get_moyu_config_info(cls) -> dict:
+        return {
+            "holidays": cls.get_holidays(),
+            "last_update_time": last_update_time,
+        }
+
+    @classmethod
+    def check_if_need_update_holidays(cls) -> None:
+        global last_update_time
+        delta = datetime.now() - last_update_time
+        if delta.days > settings.holidays_lazy_update_interval_days:
+            cls.load_holidays_from_url()
+
+
+MoyuConfigHelper.load_holidays()
+MoyuConfigHelper.load_holidays_from_url()

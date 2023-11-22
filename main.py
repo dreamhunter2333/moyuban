@@ -1,17 +1,13 @@
-import logging
 import os
+import logging
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from router.moyuban import router as moyu_router
+from router.cron_jobs import CronTaskHelper
 
-logging.basicConfig(
-    format="%(asctime)s: %(levelname)s: %(name)s: %(message)s",
-    level=logging.INFO
-)
-
-
+CronTaskHelper.init_cron_task()
 app = FastAPI(title="摸鱼办")
 
 
