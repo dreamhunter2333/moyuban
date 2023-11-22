@@ -1,9 +1,9 @@
 import os
 import logging
-from typing import List
 import requests
 
-from datetime import timedelta, timezone
+from typing import List
+from datetime import timedelta, timezone, datetime
 from config import settings
 
 from router.models import Holiday, Holidays
@@ -81,3 +81,12 @@ def load_holidays_from_url() -> None:
 
 load_holidays()
 load_holidays_from_url()
+
+
+last_update_time = datetime.now()
+
+
+def check_if_need_update_holidays() -> None:
+    delta = datetime.now() - last_update_time
+    if delta.days > settings.holidays_lazy_update_interval_days:
+        load_holidays_from_url()
