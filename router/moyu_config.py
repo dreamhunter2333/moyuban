@@ -79,6 +79,5 @@ def load_holidays_from_url() -> None:
         _logger.exception("load holidays from url error: %s", e)
 
 
-def init_config() -> None:
-    load_holidays()
-    load_holidays_from_url()
+load_holidays()
+load_holidays_from_url()

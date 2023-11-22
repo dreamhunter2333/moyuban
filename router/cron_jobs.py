@@ -23,3 +23,6 @@ class CronTaskHelper:
             replace_existing=True
         )
         scheduler.start()
+
+
+CronTaskHelper.init_cron_task()

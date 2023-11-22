@@ -3,23 +3,14 @@ import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from contextlib import asynccontextmanager
 
 from router.moyuban import router as moyu_router
-from router.moyu_config import init_config
-from router.cron_jobs import CronTaskHelper
 
 logging.basicConfig(
     format="%(asctime)s: %(levelname)s: %(name)s: %(message)s",
     level=logging.INFO
 )
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    init_config()
-    CronTaskHelper.init_cron_task()
-    yield
 
 app = FastAPI(title="摸鱼办", lifespan=lifespan)
 
