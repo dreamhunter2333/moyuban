@@ -12,7 +12,7 @@ logging.basicConfig(
 )
 
 
-app = FastAPI(title="摸鱼办", lifespan=lifespan)
+app = FastAPI(title="摸鱼办")
 
 
 class EndpointFilter(logging.Filter):
