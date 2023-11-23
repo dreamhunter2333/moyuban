@@ -5,9 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from router.moyuban import router as moyu_router
-from router.cron_jobs import CronTaskHelper
 
-CronTaskHelper.init_cron_task()
 app = FastAPI(title="摸鱼办")
 
 

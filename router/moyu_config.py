@@ -1,9 +1,8 @@
 import os
 import logging
-import requests
 
 from typing import List
-from datetime import timedelta, timezone, datetime
+from datetime import timedelta, timezone
 from config import settings
 
 from router.models import Holiday, Holidays
@@ -47,7 +46,6 @@ WEEK_DAYS = "一二三四五六日"
 
 
 HOLIDAYS = Holidays([])
-last_update_time = datetime.now()
 
 
 class MoyuConfigHelper:
@@ -68,35 +66,5 @@ class MoyuConfigHelper:
         except Exception as e:
             _logger.exception("load holidays error: %s", e)
 
-    @classmethod
-    def load_holidays_from_url(cls) -> None:
-        global HOLIDAYS, last_update_time
-        try:
-            res = requests.get(settings.holidays_file_url)
-            if res.status_code != 200:
-                _logger.error(
-                    f"load holidays from url error: {res.status_code}")
-                return
-            HOLIDAYS = Holidays.model_validate_json(res.text)
-            _logger.info(f"load holidays from url success: {HOLIDAYS}")
-            last_update_time = datetime.now()
-        except Exception as e:
-            _logger.exception("load holidays from url error: %s", e)
-
-    @classmethod
-    def get_moyu_config_info(cls) -> dict:
-        return {
-            "holidays": cls.get_holidays(),
-            "last_update_time": last_update_time,
-        }
-
-    @classmethod
-    def check_if_need_update_holidays(cls) -> None:
-        global last_update_time
-        delta = datetime.now() - last_update_time
-        if delta.days > settings.holidays_lazy_update_interval_days:
-            cls.load_holidays_from_url()
-
 
 MoyuConfigHelper.load_holidays()
-MoyuConfigHelper.load_holidays_from_url()

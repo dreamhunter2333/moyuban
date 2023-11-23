@@ -1,8 +1,11 @@
+from typing import List
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 
+from dateutil.relativedelta import relativedelta
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse, PlainTextResponse
+
+from router.models import Holiday
 
 from .moyu_config import MoyuConfigHelper
 from .moyu_config import MO_YU_TEMPLATE, MO_YU_TEMPLATE_DAY_N, TZ, WEEK_DAYS
@@ -25,14 +28,12 @@ def get_salaryday(now: datetime, day: int) -> int:
 
 
 @router.get("/api/moyu_info", response_class=JSONResponse, tags=["moyu"])
-def get_moyu_info() -> dict:
-    return MoyuConfigHelper.get_moyu_config_info()
+def get_moyu_info() -> List[Holiday]:
+    return MoyuConfigHelper.get_holidays()
 
 
 @router.get("/api/moyu", response_class=PlainTextResponse, tags=["moyu"])
 def get_moyu_message(day: int = 0) -> str:
-
-    MoyuConfigHelper.check_if_need_update_holidays()
 
     res = ""
 
