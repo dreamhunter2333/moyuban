@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 from router.models import Holiday
 
 from .moyu_config import MoyuConfigHelper
-from .moyu_config import MO_YU_TEMPLATE, MO_YU_TEMPLATE_DAY_N, TZ, WEEK_DAYS
+from .moyu_config import MO_YU_TEMPLATE, MO_YU_TEMPLATE_DAY_N, TZ, WEEK_DAYS, HOLIDAY_TITLE
 
 router = APIRouter()
 
@@ -30,6 +30,11 @@ def get_salaryday(now: datetime, day: int) -> int:
 @router.get("/api/moyu_info", response_class=JSONResponse, tags=["moyu"])
 def get_moyu_info() -> List[Holiday]:
     return MoyuConfigHelper.get_holidays()
+
+
+@router.get("/api/moyu_json", response_class=JSONResponse, tags=["moyu"])
+def get_json_moyu_message(day: int = 0) -> str:
+    return get_moyu_message(day)
 
 
 @router.get("/api/moyu", response_class=PlainTextResponse, tags=["moyu"])
@@ -67,14 +72,18 @@ def get_moyu_message(day: int = 0) -> str:
     )
     res += moyu_template
 
+    holiday_body = ""
+
     for holiday in MoyuConfigHelper.get_holidays():
         f_date = holiday.date
         template = holiday.template
         if now > f_date:
             continue
         time_delta = f_date - now
-        res += f"""\n{template.format(
+        holiday_body += f"""- {template.format(
             day=time_delta.days,
             hour=(time_delta.seconds // 3600)
         )}\n"""
+    if holiday_body:
+        res += HOLIDAY_TITLE + holiday_body
     return res

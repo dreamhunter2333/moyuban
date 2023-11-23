@@ -1,0 +1,22 @@
+{
+  "name": "moyuban",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vueuse/core": "^10.6.1",
+    "markdown-it": "^13.0.2",
+    "naive-ui": "^2.35.0",
+    "vue": "^3.3.4",
+    "vue-clipboard3": "^2.0.0",
+    "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.4.0",
+    "vite": "^4.4.11"
+  }
+}
