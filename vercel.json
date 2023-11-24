@@ -15,7 +15,7 @@
             "dest": "main.py"
         },
         {
-            "src": "/docs/(.*)",
+            "src": "/docs",
             "dest": "main.py"
         },
         {

@@ -6,12 +6,24 @@ import useClipboard from 'vue-clipboard3'
 import { ref } from 'vue';
 
 import { api } from '../api';
+import { useGlobalState } from '../store';
 
 const message = useMessage();
 const { toClipboard } = useClipboard()
 
+const { defaultTool } = useGlobalState()
+
+const updateDefaultTool = (expandedNames) => {
+  console.log(expandedNames);
+  defaultTool.value = expandedNames;
+}
+
+// 密码生成
 const length = ref(16);
 const token = ref('');
+
+// URL encode/decode
+const url = ref('');
 
 const copyToken = async () => {
   try {
@@ -30,7 +42,7 @@ const generateToken = async () => {
 <template>
   <main>
     <h1>工具</h1>
-    <n-collapse>
+    <n-collapse :default-expanded-names="defaultTool" accordion :on-update:expanded-names="updateDefaultTool">
       <n-collapse-item title="密码生成" name="1">
         <div style="display: inline-block;">
           <n-input-group>
@@ -46,7 +58,11 @@ const generateToken = async () => {
         </div>
       </n-collapse-item>
       <n-collapse-item title="URL encode/decode" name="2">
-        <div>测试</div>
+        <n-input v-model:value="url" type="textarea" :autosize="{
+          minRows: 2
+        }" />
+        <n-button type="primary" @click="url = encodeURI(url)" ghost>encode</n-button>
+        <n-button type="primary" @click="url = decodeURI(url)" ghost>decode</n-button>
       </n-collapse-item>
     </n-collapse>
   </main>
