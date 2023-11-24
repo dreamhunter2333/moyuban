@@ -1,9 +1,14 @@
 <script setup>
-import { NCard } from 'naive-ui';
+import { NCard, NResult } from 'naive-ui';
 import MarkdownIt from 'markdown-it';
 
 const md = new MarkdownIt();
-const about = md.render(`# 关于摸鱼办`);
+const about = md.render(`# 关于摸鱼办
+
+![logo](/images/logo.png)
+
+这个人很懒，什么都没留下
+`);
 </script>
 
 <template>
