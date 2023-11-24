@@ -15,6 +15,14 @@
             "dest": "main.py"
         },
         {
+            "src": "/docs",
+            "dest": "main.py"
+        },
+        {
+            "src": "/openapi.json",
+            "dest": "main.py"
+        },
+        {
             "src": "/(.*)\\.(.*)",
             "dest": "/frontend/$1.$2"
         },
