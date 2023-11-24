@@ -4,7 +4,6 @@ import { useRouter, useRoute } from 'vue-router'
 import { useGlobalState } from '../store'
 
 const router = useRouter();
-const route = useRoute();
 const { themeSwitch } = useGlobalState()
 </script>
 
@@ -14,6 +13,7 @@ const { themeSwitch } = useGlobalState()
             <h2 style="display: inline-block">摸鱼办</h2>
             <n-button @click="router.push('/')" quaternary>首页</n-button>
             <n-button @click="router.push('/tools')" quaternary>工具</n-button>
+            <n-button @click="router.push('/progress')" quaternary>进度</n-button>
             <n-button @click="router.push('/settings')" quaternary>设置</n-button>
             <n-button @click="router.push('/about')" quaternary>关于</n-button>
         </div>
