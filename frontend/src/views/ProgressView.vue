@@ -45,6 +45,8 @@ if (progressSettings.value.workdays) {
   workWeekProgress = ((weekday * 24 * 60 + now.getHours() * 60 + now.getMinutes()) / (5 * 24 * 60) * 100).toFixed(2);
 }
 
+const monthPassedDays = ((now.getTime() - new Date(now.getFullYear(), now.getMonth(), 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
+const monthTotalDays = ((new Date(now.getFullYear(), now.getMonth() + 1, 0).getTime() - new Date(now.getFullYear(), now.getMonth(), 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
 const monthProgress = ((
   now.getTime() - new Date(now.getFullYear(), now.getMonth(), 0).getTime()
 ) / (
@@ -52,6 +54,8 @@ const monthProgress = ((
   ) * 100
 ).toFixed(2);
 
+const yearPassedDays = ((now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
+const yearTotalDays = ((new Date(now.getFullYear() + 1, 0, 0).getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
 const yearProgress = ((
   now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()
 ) / (
@@ -77,21 +81,21 @@ const clacStatus = (percentage) => {
     <h2 v-if="todaySalary > 0">今日已赚 {{ todaySalary }}</h2>
     <h3 v-if="todayWorkProgress">今日工作时间进度</h3>
     <n-progress v-if="todayWorkProgress" type="line" :status="clacStatus(todayWorkProgress)"
-      :percentage="todayWorkProgress" :indicator-placement="'inside'" processing />
+      :percentage="todayWorkProgress" :indicator-placement="'inside'" />
     <h3>今日进度</h3>
     <n-progress type="line" :status="clacStatus(todayProgress)" :percentage="todayProgress"
-      :indicator-placement="'inside'" processing />
+      :indicator-placement="'inside'" />
     <h3>本周进度</h3>
-    <n-progress type="line" :status="clacStatus(weekProgress)" :percentage="weekProgress" :indicator-placement="'inside'"
-      processing />
+    <n-progress type="line" :status="clacStatus(weekProgress)" :percentage="weekProgress"
+      :indicator-placement="'inside'" />
     <h3>本周工作日进度</h3>
     <n-progress type="line" :status="clacStatus(workWeekProgress)" :percentage="workWeekProgress"
-      :indicator-placement="'inside'" processing />
-    <h3>本月进度</h3>
+      :indicator-placement="'inside'" />
+    <h3>本月进度 {{ monthPassedDays }}/{{ monthTotalDays }} 天</h3>
     <n-progress type="line" :status="clacStatus(monthProgress)" :percentage="monthProgress"
-      :indicator-placement="'inside'" processing />
-    <h3>本年进度</h3>
-    <n-progress type="line" :status="clacStatus(yearProgress)" :percentage="yearProgress" :indicator-placement="'inside'"
-      processing />
+      :indicator-placement="'inside'" />
+    <h3>本年进度 {{ yearPassedDays }}/{{ yearTotalDays }} 天</h3>
+    <n-progress type="line" :status="clacStatus(yearProgress)" :percentage="yearProgress"
+      :indicator-placement="'inside'" />
   </main>
 </template>
