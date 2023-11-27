@@ -43,7 +43,7 @@ def get_moyu_message(day: int = 0) -> str:
     res = ""
 
     now = datetime.now(tz=TZ)
-    init_time = datetime(now.year, 1, 1, tzinfo=TZ)
+    init_time = datetime(now.year, 1, 1, tzinfo=TZ) - relativedelta(days=1)
     delta = now - init_time
 
     moyu_template = MO_YU_TEMPLATE_DAY_N.format(
