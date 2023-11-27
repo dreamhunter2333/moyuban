@@ -11,7 +11,8 @@ const todayProgress = ((now.getHours() * 60 + now.getMinutes()) / (24 * 60) * 10
 
 let todayWorkProgress = 0;
 let todaySalary = 0;
-if (progressSettings.value.workStartHour < progressSettings.value.workEndHour) {
+const enableWorkProgress = progressSettings.value.workStartHour < progressSettings.value.workEndHour
+if (enableWorkProgress && now.getHours() >= progressSettings.value.workStartHour && now.getHours() < progressSettings.value.workEndHour) {
   todayWorkProgress = (
     (
       now.getTime() - new Date(now.getFullYear(), now.getMonth(), now.getDate(), progressSettings.value.workStartHour, 0, 0).getTime()
@@ -20,6 +21,12 @@ if (progressSettings.value.workStartHour < progressSettings.value.workEndHour) {
     ) * 100
   ).toFixed(2);
   todaySalary = (todayWorkProgress * progressSettings.value.salary / 100).toFixed(2);
+} else if (enableWorkProgress && now.getHours() >= progressSettings.value.workEndHour) {
+  todayWorkProgress = 100;
+  todaySalary = (todayWorkProgress * progressSettings.value.salary / 100).toFixed(2);
+} else if (enableWorkProgress && now.getHours() < progressSettings.value.workStartHour) {
+  todayWorkProgress = 0;
+  todaySalary = 0;
 }
 
 const weekday = now.getDay() === 0 ? 6 : now.getDay() - 1;

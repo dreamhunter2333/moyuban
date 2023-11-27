@@ -24,6 +24,8 @@ const token = ref('');
 
 // URL encode/decode
 const url = ref('');
+// Base64 encode/decode
+const base64Str = ref('');
 
 const copyToken = async () => {
   try {
@@ -36,6 +38,24 @@ const copyToken = async () => {
 
 const generateToken = async () => {
   token.value = await api.generateToken(length.value);
+};
+
+const encodeBase64 = async () => {
+  try {
+    base64Str.value = btoa(base64Str.value);
+    message.success('Base64 编码成功');
+  } catch (e) {
+    message.error('Base64 编码失败: ' + e.message);
+  }
+};
+
+const decodeBase64 = async () => {
+  try {
+    base64Str.value = atob(base64Str.value);
+    message.success('Base64 解码成功');
+  } catch (e) {
+    message.error('Base64 解码失败: ' + e.message);
+  }
 };
 </script>
 
@@ -63,6 +83,13 @@ const generateToken = async () => {
         }" />
         <n-button type="primary" @click="url = encodeURI(url)" ghost>encode</n-button>
         <n-button type="primary" @click="url = decodeURI(url)" ghost>decode</n-button>
+      </n-collapse-item>
+      <n-collapse-item title="Base64 encode/decode" name="3">
+        <n-input v-model:value="base64Str" type="textarea" :autosize="{
+          minRows: 2
+        }" />
+        <n-button type="primary" @click="encodeBase64" ghost>encode</n-button>
+        <n-button type="primary" @click="decodeBase64" ghost>decode</n-button>
       </n-collapse-item>
     </n-collapse>
   </main>
