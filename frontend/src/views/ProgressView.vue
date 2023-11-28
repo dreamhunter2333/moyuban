@@ -1,5 +1,5 @@
 <script setup>
-import { NProgress } from 'naive-ui';
+import { NProgress, NTime } from 'naive-ui';
 import { onMounted, ref } from 'vue';
 import { useGlobalState } from '../store';
 
@@ -12,6 +12,7 @@ const todayProgress = ref(0);
 const updateTodayProgress = () => {
   todayProgress.value = ((now.value.getHours() * 60 + now.value.getMinutes()) / (24 * 60) * 100).toFixed(2);
 }
+
 const todayWorkProgress = ref(0);
 const todaySalary = ref(0);
 
@@ -94,8 +95,9 @@ onMounted(() => {
 
 <template>
   <main>
-    <h2>现在是 {{ now.toLocaleString() }}</h2>
-    <h2 v-if="todaySalary > 0">今日已赚 {{ todaySalary }}</h2>
+    <h2>现在是 <n-time :time="now" format="yyyy年MM月dd日 HH:mm:ss" />
+    </h2>
+    <h3 v-if="todaySalary > 0">今日已赚 {{ todaySalary }}</h3>
     <h3 v-if="todayWorkProgress">今日工作时间进度</h3>
     <n-progress v-if="todayWorkProgress" type="line" :status="clacStatus(todayWorkProgress)"
       :percentage="todayWorkProgress" :indicator-placement="'inside'" />

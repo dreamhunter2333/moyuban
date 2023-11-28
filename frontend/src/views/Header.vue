@@ -1,9 +1,10 @@
 <script setup>
-import { NGrid, NLayoutHeader, NSwitch, NButton, NMenu } from 'naive-ui'
+import { NGrid, NLayoutHeader, NSwitch, NButton, NMenu, NIcon } from 'naive-ui'
 import { RouterLink } from 'vue-router'
 import { h } from 'vue'
 import { useGlobalState } from '../store'
 import { useIsMobile } from '../utils/composables'
+import { DarkModeFilled, DarkModeOutlined, StarOutlineFilled } from '@vicons/material'
 
 const { themeSwitch } = useGlobalState()
 
@@ -81,15 +82,16 @@ const menuOptionsMobile = [
         </div>
         <div>
             <n-switch v-model:value="themeSwitch" :size="isMobile ? 'small' : 'medium'">
-                <template #checked>
-                    暗
+                <template #checked-icon>
+                    <n-icon :component="DarkModeFilled" />
                 </template>
-                <template #unchecked>
-                    亮
+                <template #unchecked-icon>
+                    <n-icon :component="DarkModeOutlined" />
                 </template>
             </n-switch>
             <n-button tag="a" target="_blank" tertiary type="primary" round :size="isMobile ? 'small' : 'medium'"
-                href="https://github.com/dreamhunter2333/moyuban">Star on Github
+                href="https://github.com/dreamhunter2333/moyuban">
+                <n-icon :component="StarOutlineFilled" /> Github
             </n-button>
         </div>
     </n-layout-header>
