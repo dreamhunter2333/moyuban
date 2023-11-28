@@ -86,7 +86,6 @@ onMounted(() => {
   updateWorkProgress();
   setInterval(() => {
     now.value = new Date();
-    todayProgress.value = getTodayProgress();
     updateTodayProgress();
     updateWorkProgress();
   }, 1000);
