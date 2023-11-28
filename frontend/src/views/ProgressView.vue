@@ -1,65 +1,72 @@
 <script setup>
 import { NProgress } from 'naive-ui';
+import { onMounted, ref } from 'vue';
 import { useGlobalState } from '../store';
 
 const { progressSettings } = useGlobalState()
 
-const now = new Date();
+const now = ref(new Date());
 
-const todayProgress = ((now.getHours() * 60 + now.getMinutes()) / (24 * 60) * 100).toFixed(2);
+const todayProgress = ref(0);
 
+const updateTodayProgress = () => {
+  todayProgress.value = ((now.value.getHours() * 60 + now.value.getMinutes()) / (24 * 60) * 100).toFixed(2);
+}
+const todayWorkProgress = ref(0);
+const todaySalary = ref(0);
 
-let todayWorkProgress = 0;
-let todaySalary = 0;
 const enableWorkProgress = progressSettings.value.workStartHour < progressSettings.value.workEndHour
-if (enableWorkProgress && now.getHours() >= progressSettings.value.workStartHour && now.getHours() < progressSettings.value.workEndHour) {
-  todayWorkProgress = (
-    (
-      now.getTime() - new Date(now.getFullYear(), now.getMonth(), now.getDate(), progressSettings.value.workStartHour, 0, 0).getTime()
-    ) / (
-      new Date(now.getFullYear(), now.getMonth(), now.getDate(), progressSettings.value.workEndHour, 0, 0).getTime() - new Date(now.getFullYear(), now.getMonth(), now.getDate(), progressSettings.value.workStartHour, 0, 0).getTime()
-    ) * 100
-  ).toFixed(2);
-  todaySalary = (todayWorkProgress * progressSettings.value.salary / 100).toFixed(2);
-} else if (enableWorkProgress && now.getHours() >= progressSettings.value.workEndHour) {
-  todayWorkProgress = 100;
-  todaySalary = (todayWorkProgress * progressSettings.value.salary / 100).toFixed(2);
-} else if (enableWorkProgress && now.getHours() < progressSettings.value.workStartHour) {
-  todayWorkProgress = 0;
-  todaySalary = 0;
+
+const updateWorkProgress = () => {
+  if (enableWorkProgress && now.value.getHours() >= progressSettings.value.workStartHour && now.value.getHours() < progressSettings.value.workEndHour) {
+    todayWorkProgress.value = (
+      (
+        now.value.getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), now.value.getDate(), progressSettings.value.workStartHour, 0, 0).getTime()
+      ) / (
+        new Date(now.value.getFullYear(), now.value.getMonth(), now.value.getDate(), progressSettings.value.workEndHour, 0, 0).getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), now.value.getDate(), progressSettings.value.workStartHour, 0, 0).getTime()
+      ) * 100
+    ).toFixed(2);
+    todaySalary.value = (todayWorkProgress.value * progressSettings.value.salary / 100).toFixed(2);
+  } else if (enableWorkProgress && now.value.getHours() >= progressSettings.value.workEndHour) {
+    todayWorkProgress.value = 100;
+    todaySalary.value = (todayWorkProgress.value * progressSettings.value.salary / 100).toFixed(2);
+  } else if (enableWorkProgress && now.value.getHours() < progressSettings.value.workStartHour) {
+    todayWorkProgress.value = 0;
+    todaySalary.value = 0;
+  }
 }
 
-const weekday = now.getDay() === 0 ? 6 : now.getDay() - 1;
-const weekProgress = ((weekday * 24 * 60 + now.getHours() * 60 + now.getMinutes()) / (7 * 24 * 60) * 100).toFixed(2);
+const weekday = now.value.getDay() === 0 ? 6 : now.value.getDay() - 1;
+const weekProgress = ((weekday * 24 * 60 + now.value.getHours() * 60 + now.value.getMinutes()) / (7 * 24 * 60) * 100).toFixed(2);
 
 let workWeekProgress = 100;
 if (progressSettings.value.workdays) {
-  const passedWorkdays = progressSettings.value.workdays.filter((day) => day < now.getDay()).length;
+  const passedWorkdays = progressSettings.value.workdays.filter((day) => day < now.value.getDay()).length;
   const allworddays = progressSettings.value.workdays.length;
   let passedWorkdaysTime = passedWorkdays * 24 * 60;
-  if (progressSettings.value.workdays.includes(now.getDay())) {
-    passedWorkdaysTime += now.getHours() * 60 + now.getMinutes();
+  if (progressSettings.value.workdays.includes(now.value.getDay())) {
+    passedWorkdaysTime += now.value.getHours() * 60 + now.value.getMinutes();
   }
   workWeekProgress = (passedWorkdaysTime / (allworddays * 24 * 60) * 100).toFixed(2);
 } else if (weekday < 5) {
-  workWeekProgress = ((weekday * 24 * 60 + now.getHours() * 60 + now.getMinutes()) / (5 * 24 * 60) * 100).toFixed(2);
+  workWeekProgress = ((weekday * 24 * 60 + now.value.getHours() * 60 + now.value.getMinutes()) / (5 * 24 * 60) * 100).toFixed(2);
 }
 
-const monthPassedDays = ((now.getTime() - new Date(now.getFullYear(), now.getMonth(), 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
-const monthTotalDays = ((new Date(now.getFullYear(), now.getMonth() + 1, 0).getTime() - new Date(now.getFullYear(), now.getMonth(), 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
+const monthPassedDays = ((now.value.getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
+const monthTotalDays = ((new Date(now.value.getFullYear(), now.value.getMonth() + 1, 0).getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
 const monthProgress = ((
-  now.getTime() - new Date(now.getFullYear(), now.getMonth(), 0).getTime()
+  now.value.getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), 0).getTime()
 ) / (
-    new Date(now.getFullYear(), now.getMonth() + 1, 0).getTime() - new Date(now.getFullYear(), now.getMonth(), 0).getTime()
+    new Date(now.value.getFullYear(), now.value.getMonth() + 1, 0).getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), 0).getTime()
   ) * 100
 ).toFixed(2);
 
-const yearPassedDays = ((now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
-const yearTotalDays = ((new Date(now.getFullYear() + 1, 0, 0).getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
+const yearPassedDays = ((now.value.getTime() - new Date(now.value.getFullYear(), 0, 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
+const yearTotalDays = ((new Date(now.value.getFullYear() + 1, 0, 0).getTime() - new Date(now.value.getFullYear(), 0, 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
 const yearProgress = ((
-  now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()
+  now.value.getTime() - new Date(now.value.getFullYear(), 0, 0).getTime()
 ) / (
-    new Date(now.getFullYear() + 1, 0, 0).getTime() - new Date(now.getFullYear(), 0, 0).getTime()
+    new Date(now.value.getFullYear() + 1, 0, 0).getTime() - new Date(now.value.getFullYear(), 0, 0).getTime()
   ) * 100
 ).toFixed(2);
 
@@ -73,6 +80,17 @@ const clacStatus = (percentage) => {
     return 'error';
   }
 }
+
+onMounted(() => {
+  updateTodayProgress();
+  updateWorkProgress();
+  setInterval(() => {
+    now.value = new Date();
+    todayProgress.value = getTodayProgress();
+    updateTodayProgress();
+    updateWorkProgress();
+  }, 1000);
+})
 </script>
 
 <template>
