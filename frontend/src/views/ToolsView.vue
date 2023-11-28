@@ -14,7 +14,6 @@ const { toClipboard } = useClipboard()
 const { defaultTool } = useGlobalState()
 
 const updateDefaultTool = (expandedNames) => {
-  console.log(expandedNames);
   defaultTool.value = expandedNames;
 }
 

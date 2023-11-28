@@ -10,9 +10,7 @@ const result = ref('');
 
 onMounted(async () => {
   const res = await api.getMoyuMessage();
-  console.log(res);
   result.value = md.render(res);
-  console.log(result.value);
 });
 </script>
 

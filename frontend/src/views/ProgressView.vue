@@ -52,21 +52,21 @@ if (progressSettings.value.workdays) {
   workWeekProgress = ((weekday * 24 * 60 + now.value.getHours() * 60 + now.value.getMinutes()) / (5 * 24 * 60) * 100).toFixed(2);
 }
 
-const monthPassedDays = ((now.value.getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
-const monthTotalDays = ((new Date(now.value.getFullYear(), now.value.getMonth() + 1, 0).getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
+const monthPassedDays = ((now.value.getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), 1).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
+const monthTotalDays = ((new Date(now.value.getFullYear(), now.value.getMonth() + 1, 1).getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), 1).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
 const monthProgress = ((
-  now.value.getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), 0).getTime()
+  now.value.getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), 1).getTime()
 ) / (
-    new Date(now.value.getFullYear(), now.value.getMonth() + 1, 0).getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), 0).getTime()
+    new Date(now.value.getFullYear(), now.value.getMonth() + 1, 1).getTime() - new Date(now.value.getFullYear(), now.value.getMonth(), 1).getTime()
   ) * 100
 ).toFixed(2);
 
-const yearPassedDays = ((now.value.getTime() - new Date(now.value.getFullYear(), 0, 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
-const yearTotalDays = ((new Date(now.value.getFullYear() + 1, 0, 0).getTime() - new Date(now.value.getFullYear(), 0, 0).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
+const yearPassedDays = ((now.value.getTime() - new Date(now.value.getFullYear(), 0, 1).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
+const yearTotalDays = ((new Date(now.value.getFullYear() + 1, 0, 1).getTime() - new Date(now.value.getFullYear(), 0, 1).getTime()) / (24 * 60 * 60 * 1000)).toFixed(0);
 const yearProgress = ((
-  now.value.getTime() - new Date(now.value.getFullYear(), 0, 0).getTime()
+  now.value.getTime() - new Date(now.value.getFullYear(), 0, 1).getTime()
 ) / (
-    new Date(now.value.getFullYear() + 1, 0, 0).getTime() - new Date(now.value.getFullYear(), 0, 0).getTime()
+    new Date(now.value.getFullYear() + 1, 0, 1).getTime() - new Date(now.value.getFullYear(), 0, 1).getTime()
   ) * 100
 ).toFixed(2);
 
