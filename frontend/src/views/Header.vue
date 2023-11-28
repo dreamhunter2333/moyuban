@@ -1,24 +1,86 @@
 <script setup>
-import { NGrid, NLayoutHeader, NSwitch, NButton } from 'naive-ui'
-import { useRouter, useRoute } from 'vue-router'
+import { NGrid, NLayoutHeader, NSwitch, NButton, NMenu } from 'naive-ui'
+import { RouterLink } from 'vue-router'
+import { h } from 'vue'
 import { useGlobalState } from '../store'
+import { useIsMobile } from '../utils/composables'
 
-const router = useRouter();
 const { themeSwitch } = useGlobalState()
+
+const menuOptions = [
+    {
+        label: () => h(
+            RouterLink,
+            {
+                to: "/"
+            },
+            { default: () => "首页" }
+        ),
+        key: "home"
+    },
+    {
+        label: () => h(
+            RouterLink,
+            {
+                to: "/tools"
+            },
+            { default: () => "工具" }
+        ),
+        key: "tools"
+    },
+    {
+        label: () => h(
+            RouterLink,
+            {
+                to: "/progress"
+            },
+            { default: () => "进度" }
+        ),
+        key: "progress"
+    },
+    {
+        label: () => h(
+            RouterLink,
+            {
+                to: "/settings"
+            },
+            { default: () => "设置" }
+        ),
+        key: "settings"
+    },
+    {
+        label: () => h(
+            RouterLink,
+            {
+                to: "/about"
+            },
+            { default: () => "关于" }
+        ),
+        key: "about"
+    }
+];
+
+const isMobile = useIsMobile()
+
+const menuOptionsMobile = [
+    {
+        label: "菜单",
+        key: "menu",
+        children: menuOptions
+    },
+]
+
 </script>
 
 <template>
     <n-layout-header>
         <div>
-            <h2 style="display: inline-block">摸鱼办</h2>
-            <n-button @click="router.push('/')" quaternary>首页</n-button>
-            <n-button @click="router.push('/tools')" quaternary>工具</n-button>
-            <n-button @click="router.push('/progress')" quaternary>进度</n-button>
-            <n-button @click="router.push('/settings')" quaternary>设置</n-button>
-            <n-button @click="router.push('/about')" quaternary>关于</n-button>
+            <h2 v-if="!isMobile" style="display: inline-block">摸鱼办</h2>
+            <n-menu v-if="!isMobile" mode="horizontal" :options="menuOptions" />
+            <n-menu v-else mode="horizontal" :options="menuOptionsMobile" />
         </div>
         <div>
-            <n-switch v-model:value="themeSwitch">
+            <n-switch v-model:value="themeSwitch" :size="isMobile ? 'small' : 'medium'">
                 <template #checked>
                     暗
                 </template>
@@ -26,7 +88,7 @@ const { themeSwitch } = useGlobalState()
                     亮
                 </template>
             </n-switch>
-            <n-button tag="a" target="_blank" tertiary type="primary" round
+            <n-button tag="a" target="_blank" tertiary type="primary" round :size="isMobile ? 'small' : 'medium'"
                 href="https://github.com/dreamhunter2333/moyuban">Star on Github
             </n-button>
         </div>
