@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 import { h } from 'vue'
 import { useGlobalState } from '../store'
 import { useIsMobile } from '../utils/composables'
-import { DarkModeFilled, DarkModeOutlined, StarOutlineFilled } from '@vicons/material'
+import { DarkModeFilled, DarkModeOutlined, StarOutlineFilled, MenuFilled } from '@vicons/material'
 
 const { themeSwitch } = useGlobalState()
 
@@ -65,7 +65,12 @@ const isMobile = useIsMobile()
 
 const menuOptionsMobile = [
     {
-        label: "菜单",
+        label: () => h(
+            NIcon,
+            {
+                component: MenuFilled
+            }
+        ),
         key: "menu",
         children: menuOptions
     },
