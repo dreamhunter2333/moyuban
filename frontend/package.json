@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^10.6.1",
+    "js-base64": "^3.7.5",
     "markdown-it": "^13.0.2",
     "naive-ui": "^2.35.0",
     "vooks": "^0.2.12",

@@ -2,6 +2,7 @@
 import { NCollapse, NCollapseItem, NInputGroup, NInputGroupLabel } from 'naive-ui';
 import { NInput, NInputNumber, NButton, useMessage } from 'naive-ui';
 import useClipboard from 'vue-clipboard3'
+import { Base64 } from 'js-base64';
 
 import { ref } from 'vue';
 
@@ -41,8 +42,7 @@ const generateToken = async () => {
 
 const encodeBase64 = async () => {
   try {
-    base64Str.value = btoa(base64Str.value);
-    message.success('Base64 编码成功');
+    base64Str.value = Base64.encode(base64Str.value);
   } catch (e) {
     message.error('Base64 编码失败: ' + e.message);
   }
@@ -50,8 +50,7 @@ const encodeBase64 = async () => {
 
 const decodeBase64 = async () => {
   try {
-    base64Str.value = atob(base64Str.value);
-    message.success('Base64 解码成功');
+    base64Str.value = Base64.decode(base64Str.value);
   } catch (e) {
     message.error('Base64 解码失败: ' + e.message);
   }

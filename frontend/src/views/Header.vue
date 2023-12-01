@@ -27,7 +27,29 @@ const menuOptions = [
             },
             { default: () => "工具" }
         ),
-        key: "tools"
+        key: "tools",
+        children: [
+            {
+                label: () => h(
+                    RouterLink,
+                    {
+                        to: "/tools"
+                    },
+                    { default: () => "工具" }
+                ),
+                key: "tools",
+            },
+            {
+                label: () => h(
+                    RouterLink,
+                    {
+                        to: "/share"
+                    },
+                    { default: () => "分享" }
+                ),
+                key: "share",
+            }
+        ]
     },
     {
         label: () => h(
