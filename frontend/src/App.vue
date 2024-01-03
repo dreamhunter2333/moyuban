@@ -8,9 +8,11 @@ import { computed } from 'vue'
 
 import Header from './views/Header.vue'
 import { useGlobalState } from './store'
+import { useIsMobile } from './utils/composables'
 
 const { themeSwitch, loading } = useGlobalState()
 const theme = computed(() => themeSwitch.value ? darkTheme : null)
+const isMobile = useIsMobile()
 </script>
 
 <template>
@@ -19,14 +21,14 @@ const theme = computed(() => themeSwitch.value ? darkTheme : null)
     <n-spin description="loading..." :show="loading">
       <n-message-provider>
         <n-grid x-gap="12" :cols="12">
-          <n-gi span="1"></n-gi>
-          <n-gi span="10">
+          <n-gi v-if="!isMobile" span="1"></n-gi>
+          <n-gi :span="isMobile ? 12 : 10">
             <div class="main">
               <Header />
               <RouterView />
             </div>
           </n-gi>
-          <n-gi span="1"></n-gi>
+          <n-gi v-if="!isMobile" span="1"></n-gi>
         </n-grid>
         <n-back-top :right="100" />
       </n-message-provider>
