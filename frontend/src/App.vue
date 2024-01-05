@@ -5,13 +5,20 @@ import { darkTheme, NGlobalStyle } from 'naive-ui'
 import { RouterView } from 'vue-router'
 import { zhCN } from 'naive-ui'
 import { computed } from 'vue'
-
-import Header from './views/Header.vue'
+import { useHead } from '@unhead/vue'
 import { useGlobalState } from './store'
 import { useIsMobile } from './utils/composables'
+import Header from './views/Header.vue'
 
 const { themeSwitch, loading } = useGlobalState()
 const theme = computed(() => themeSwitch.value ? darkTheme : null)
+useHead({
+  "meta": [
+    {
+      "theme-color": () => themeSwitch.value ? "#18181c" : "#ffffff"
+    }
+  ],
+})
 const isMobile = useIsMobile()
 </script>
 
