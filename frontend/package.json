@@ -8,7 +8,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@unhead/vue": "^1.8.9",
     "@vueuse/core": "^10.7.0",
     "js-base64": "^3.7.5",
     "lz-string": "^1.5.0",
