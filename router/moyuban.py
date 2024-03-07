@@ -9,6 +9,7 @@ from router.models import Holiday
 
 from .moyu_config import HOLIDAY_TITLE_TXT, MO_YU_TEMPLATE_DAY_N_TXT, MO_YU_TEMPLATE_TXT, MoyuConfigHelper
 from .moyu_config import MO_YU_TEMPLATE, MO_YU_TEMPLATE_DAY_N, TZ, WEEK_DAYS, HOLIDAY_TITLE
+from .moyu_config import PALU_TEMPLATE, PALU_TEMPLATE_DAY_N, PALU_TEMPLATE_TIPS
 
 router = APIRouter()
 
@@ -138,4 +139,68 @@ def get_moyu_message_txt(day: int = 0) -> str:
         )}\n"""
     if holiday_body:
         res += HOLIDAY_TITLE_TXT + holiday_body
+    return res.strip()
+
+
+@router.get("/api/palworld_json", response_class=JSONResponse, tags=["palworld"])
+def get_json_palworld_message(day: int = 0) -> str:
+    return get_palworld_message(day)
+
+
+@router.get("/api/palworld", response_class=PlainTextResponse, tags=["palworld"])
+def get_palworld_message(day: int = 0) -> str:
+
+    res = ""
+
+    now = datetime.now(tz=TZ)
+    init_time = datetime(now.year, 1, 1, tzinfo=TZ) - relativedelta(days=1)
+    delta = now - init_time
+
+    moyu_template = PALU_TEMPLATE_DAY_N.format(
+        year=now.year, month=now.month, day=now.day,
+        weekday=WEEK_DAYS[now.weekday()],
+        passdays=delta.days,
+        passhours=(delta.seconds // 3600),
+        salaryday=day,
+        salarydayn=get_salaryday(now, day),
+        day_to_weekend=5 - now.weekday() if now.weekday() < 6 else 6
+    ) if day else PALU_TEMPLATE.format(
+        year=now.year, month=now.month, day=now.day,
+        weekday=WEEK_DAYS[now.weekday()],
+        passdays=delta.days,
+        passhours=(delta.seconds // 3600),
+        salaryday1=(
+            datetime(now.year, now.month, 1, tzinfo=TZ)
+            + relativedelta(months=1, days=-1)
+            - datetime(now.year, now.month, now.day, tzinfo=TZ)
+        ).days,
+        salaryday5=get_salaryday(now, 5),
+        salaryday10=get_salaryday(now, 10),
+        salaryday15=get_salaryday(now, 15),
+        salaryday20=get_salaryday(now, 20),
+        day_to_weekend=5 - now.weekday() if now.weekday() < 6 else 6
+    )
+    res += moyu_template
+
+    holiday_body = ""
+
+    for holiday in MoyuConfigHelper.get_holidays():
+        f_date = holiday.date
+        template = holiday.template
+        if now > f_date:
+            continue
+        time_delta = f_date - now
+        holiday_body += f"""- {template.format(
+            day=time_delta.days,
+            hour=(time_delta.seconds // 3600)
+        )}\n"""
+    if holiday_body:
+        res += HOLIDAY_TITLE + holiday_body
+    res += PALU_TEMPLATE_TIPS
     return res
+
+
+@router.get("/api/palworld_txt", response_class=PlainTextResponse, tags=["palworld"])
+def get_txt_palworld_message(day: int = 0) -> str:
+    res = get_palworld_message(day)
+    return res.replace("## ", "").replace("# ", "").strip()
