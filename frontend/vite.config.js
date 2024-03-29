@@ -15,10 +15,15 @@ export default defineConfig({
       devOptions: {
         enabled: true
       },
+      workbox: {
+        disableDevLogs: true,
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+      },
       manifest: {
         name: '摸鱼办',
         short_name: '摸鱼办',
         description: '摸鱼办 - 一个集成各种工具的网站',
+        theme_color: '#ffffff',
         icons: [
           {
             src: '/images/pwa-192x192.png',
