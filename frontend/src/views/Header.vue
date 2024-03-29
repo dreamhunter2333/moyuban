@@ -87,7 +87,8 @@ const isMobile = useIsMobile()
 
 const menuOptionsMobile = [
     {
-        label: () => h(
+        label: "菜单",
+        icon: () => h(
             NIcon,
             {
                 component: MenuFilled
@@ -102,8 +103,10 @@ const menuOptionsMobile = [
 
 <template>
     <n-layout-header>
+        <div v-if="!isMobile">
+            <h2 style="display: inline-block; margin-left: 10px;">摸鱼办</h2>
+        </div>
         <div>
-            <h2 v-if="!isMobile" style="display: inline-block; margin-left: 10px;">摸鱼办</h2>
             <n-menu v-if="!isMobile" mode="horizontal" :options="menuOptions" />
             <n-menu v-else mode="horizontal" :options="menuOptionsMobile" />
         </div>

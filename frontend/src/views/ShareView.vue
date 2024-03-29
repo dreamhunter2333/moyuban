@@ -1,11 +1,10 @@
 <script setup>
-import { NRadioButton, NRadioGroup, NModal } from 'naive-ui';
+import { NRadioButton, NRadioGroup, NModal, NQrCode } from 'naive-ui';
 import { NInput, NCard, NButton, useMessage } from 'naive-ui';
 import useClipboard from 'vue-clipboard3'
 import { useRoute } from 'vue-router'
 import LZString from 'lz-string';
 import MarkdownIt from 'markdown-it';
-import QrcodeVue from 'qrcode.vue'
 
 import { ref } from 'vue';
 
@@ -72,22 +71,22 @@ const markdownRender = (content) => {
     <n-button type="primary" @click="showQrcode = true" ghost>查看分享二维码</n-button>
     <n-modal v-model:show="showQrcode" preset="dialog">
       <n-card title="二维码">
-        <qrcode-vue :value="generateSharedURL()" size="300" />
+        <n-qr-code :value="generateSharedURL()" size="300" style="max-width: 100%; overflow: scroll" />
       </n-card>
     </n-modal>
     <div v-if="isShared">
       <n-card>
         <n-input v-if="contentType == 'text'" v-model:value="content" type="textarea" :autosize="{
-          minRows: 10
-        }" readonly />
+      minRows: 10
+    }" readonly />
         <div class="left" v-else-if="contentType == 'html'" v-html="content"></div>
         <div class="left" v-else-if="contentType == 'markdown'" v-html="markdownRender(content)"></div>
       </n-card>
     </div>
     <div v-else>
       <n-input v-model:value="content" type="textarea" :autosize="{
-        minRows: 10
-      }" />
+      minRows: 10
+    }" />
     </div>
   </main>
 </template>

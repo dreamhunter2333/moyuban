@@ -76,16 +76,14 @@ const decodeBase64 = async () => {
         </div>
       </n-collapse-item>
       <n-collapse-item title="URL encode/decode" name="2">
-        <n-input v-model:value="url" type="textarea" :autosize="{
-          minRows: 2
-        }" />
-        <n-button type="primary" @click="url = encodeURI(url)" ghost>encode</n-button>
-        <n-button type="primary" @click="url = decodeURI(url)" ghost>decode</n-button>
+        <n-input v-model:value="url" type="textarea" :autosize="{ minRows: 2 }" />
+        <n-button type="primary" @click="url = encodeURI(url)" ghost>encodeURI</n-button>
+        <n-button type="primary" @click="url = decodeURI(url)" ghost>decodeURI</n-button>
+        <n-button type="primary" @click="url = encodeURIComponent(url)" ghost>decodeURIComponent</n-button>
+        <n-button type="primary" @click="url = decodeURIComponent(url)" ghost>decodeURIComponent</n-button>
       </n-collapse-item>
       <n-collapse-item title="Base64 encode/decode" name="3">
-        <n-input v-model:value="base64Str" type="textarea" :autosize="{
-          minRows: 2
-        }" />
+        <n-input v-model:value="base64Str" type="textarea" :autosize="{ minRows: 2 }" />
         <n-button type="primary" @click="encodeBase64" ghost>encode</n-button>
         <n-button type="primary" @click="decodeBase64" ghost>decode</n-button>
       </n-collapse-item>
