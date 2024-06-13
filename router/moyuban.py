@@ -32,14 +32,6 @@ def get_salaryday(now: datetime, day: int) -> int:
 def get_moyu_info() -> List[Holiday]:
     return MoyuConfigHelper.get_holidays()
 
-
-@router.get("/api/moyu_json_res", response_class=JSONResponse, tags=["moyu"])
-def get_json_res_moyu_message(day: int = 0) -> dict:
-    return {
-        "message": get_moyu_message(day),
-    }
-
-
 @router.get("/api/moyu_json", response_class=JSONResponse, tags=["moyu"])
 def get_json_moyu_message(day: int = 0) -> str:
     return get_moyu_message(day)

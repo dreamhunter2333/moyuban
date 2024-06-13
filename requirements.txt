@@ -1,5 +1,5 @@
-fastapi==0.104.1
-# uvicorn==0.24.0.post1
-python-dotenv==1.0.0
-python-dateutil==2.8.2
-pydantic-settings==2.1.0
+fastapi==0.111.0
+# uvicorn==0.30.1
+python-dateutil==2.9.0.post0
+pydantic-settings==2.3.3
+requests==2.32.3

@@ -8,4 +8,9 @@ class Holiday(BaseModel):
     template: str
 
 
+class LarkWebHook(BaseModel):
+    url: str
+    secret: str
+
+
 Holidays = RootModel[List[Holiday]]
