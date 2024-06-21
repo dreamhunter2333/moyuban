@@ -5,10 +5,12 @@ import useClipboard from 'vue-clipboard3'
 import { useRoute } from 'vue-router'
 import LZString from 'lz-string';
 import MarkdownIt from 'markdown-it';
+import { useIsMobile } from '../utils/composables'
 
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const message = useMessage();
+const isMobile = useIsMobile()
 const { toClipboard } = useClipboard()
 const route = useRoute();
 const md = new MarkdownIt();
@@ -54,6 +56,12 @@ const markdownRender = (content) => {
     message.error('Markdown 渲染失败: ' + e.message);
   }
 };
+
+// computed from sreen width
+const qrCodeSize = computed(() => {
+  const width = window.innerWidth;
+  return 100 * Math.min(3, Math.max(1, Math.floor(width / 200)));
+})
 </script>
 
 <template>
@@ -70,23 +78,20 @@ const markdownRender = (content) => {
     <n-button type="primary" @click="share" ghost>复制分享链接</n-button>
     <n-button type="primary" @click="showQrcode = true" ghost>查看分享二维码</n-button>
     <n-modal v-model:show="showQrcode" preset="dialog">
-      <n-card title="二维码">
-        <n-qr-code :value="generateSharedURL()" size="300" style="max-width: 100%; overflow: scroll" />
+      <n-card title="二维码" style="text-align: center;">
+        <n-qr-code :value="generateSharedURL()" :size="qrCodeSize" />
       </n-card>
     </n-modal>
     <div v-if="isShared">
       <n-card>
-        <n-input v-if="contentType == 'text'" v-model:value="content" type="textarea" :autosize="{
-      minRows: 10
-    }" readonly />
+        <n-input v-if="contentType == 'text'" v-model:value="content" type="textarea" :autosize="{ minRows: 10 }"
+          readonly />
         <div class="left" v-else-if="contentType == 'html'" v-html="content"></div>
         <div class="left" v-else-if="contentType == 'markdown'" v-html="markdownRender(content)"></div>
       </n-card>
     </div>
     <div v-else>
-      <n-input v-model:value="content" type="textarea" :autosize="{
-      minRows: 10
-    }" />
+      <n-input v-model:value="content" type="textarea" :autosize="{ minRows: 10 }" />
     </div>
   </main>
 </template>

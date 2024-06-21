@@ -6,7 +6,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from router.moyuban import router as moyu_router
 from router.tools_router import router as tools_router
-from router.lark_bot_router import router as lark_bot_router
 
 app = FastAPI(title="摸鱼办")
 
@@ -34,7 +33,6 @@ if os.environ.get("DEV"):
 
 app.include_router(moyu_router, prefix="")
 app.include_router(tools_router, prefix="")
-app.include_router(lark_bot_router, prefix="")
 
 if __name__ == "__main__":
     import uvicorn

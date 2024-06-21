@@ -1,10 +1,14 @@
 <script setup>
-import { NGrid, NLayoutHeader, NSwitch, NButton, NMenu, NIcon } from 'naive-ui'
+import {
+    NPageHeader, NLayoutHeader, NButton, NMenu, NIcon,
+    NAvatar, NSpace, NFlex
+} from 'naive-ui'
 import { RouterLink } from 'vue-router'
 import { h } from 'vue'
 import { useGlobalState } from '../store'
 import { useIsMobile } from '../utils/composables'
-import { DarkModeFilled, DarkModeOutlined, StarOutlineFilled, MenuFilled } from '@vicons/material'
+import { DarkModeFilled, LightModeFilled, MenuFilled } from '@vicons/material'
+import { GithubAlt } from '@vicons/fa'
 
 const { themeSwitch } = useGlobalState()
 
@@ -28,28 +32,16 @@ const menuOptions = [
             { default: () => "工具" }
         ),
         key: "tools",
-        children: [
+    },
+    {
+        label: () => h(
+            RouterLink,
             {
-                label: () => h(
-                    RouterLink,
-                    {
-                        to: "/tools"
-                    },
-                    { default: () => "工具" }
-                ),
-                key: "tools",
+                to: "/share"
             },
-            {
-                label: () => h(
-                    RouterLink,
-                    {
-                        to: "/share"
-                    },
-                    { default: () => "分享" }
-                ),
-                key: "share",
-            }
-        ]
+            { default: () => "分享" }
+        ),
+        key: "share",
     },
     {
         label: () => h(
@@ -87,7 +79,7 @@ const isMobile = useIsMobile()
 
 const menuOptionsMobile = [
     {
-        label: "菜单",
+        label: () => h("h3", "菜单"),
         icon: () => h(
             NIcon,
             {
@@ -103,34 +95,34 @@ const menuOptionsMobile = [
 
 <template>
     <n-layout-header>
-        <div v-if="!isMobile">
-            <h2 style="display: inline-block; margin-left: 10px;">摸鱼办</h2>
-        </div>
-        <div>
-            <n-menu v-if="!isMobile" mode="horizontal" :options="menuOptions" />
-            <n-menu v-else mode="horizontal" :options="menuOptionsMobile" />
-        </div>
-        <div>
-            <n-switch v-model:value="themeSwitch" :size="isMobile ? 'small' : 'medium'">
-                <template #checked-icon>
-                    <n-icon :component="DarkModeFilled" />
-                </template>
-                <template #unchecked-icon>
-                    <n-icon :component="DarkModeOutlined" />
-                </template>
-            </n-switch>
-            <n-button tag="a" target="_blank" tertiary type="primary" round :size="isMobile ? 'small' : 'medium'"
-                href="https://github.com/dreamhunter2333/moyuban">
-                <n-icon :component="StarOutlineFilled" /> Github
-            </n-button>
-        </div>
+        <n-page-header>
+            <template #title>
+                <n-space v-if="!isMobile" style="align-items: center;">
+                    <h3>摸鱼办</h3>
+                    <n-menu mode="horizontal" :options="menuOptions" responsive />
+                </n-space>
+                <n-space v-else style="align-items: center;">
+                    <n-menu mode="horizontal" :options="menuOptionsMobile" />
+                </n-space>
+            </template>
+            <template #avatar v-if="!isMobile">
+                <n-avatar style="margin-left: 10px;" src="/images/pwa-192x192.png" />
+            </template>
+            <template #extra>
+                <n-flex justify="end">
+                    <n-button v-model:value="themeSwitch" text @click="themeSwitch = !themeSwitch">
+                        <template #icon>
+                            <n-icon :component="themeSwitch ? LightModeFilled : DarkModeFilled" />
+                        </template>
+                    </n-button>
+                    <n-button tag="a" target="_blank" tertiary type="primary" round
+                        :size="isMobile ? 'small' : 'medium'" href="https://github.com/dreamhunter2333/moyuban">
+                        <template #icon>
+                            <n-icon :component="GithubAlt" />
+                        </template>
+                    </n-button>
+                </n-flex>
+            </template>
+        </n-page-header>
     </n-layout-header>
 </template>
-
-<style scoped>
-.n-layout-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-</style>
