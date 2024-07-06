@@ -16,7 +16,7 @@ export default defineConfig({
         enabled: true
       },
       workbox: {
-        navigateFallbackDenylist: [/^\/api/],
+        navigateFallbackDenylist: [/^\/api/, /^\/docs/, /^\/openapi.json/],
         disableDevLogs: true
       },
       manifest: {
