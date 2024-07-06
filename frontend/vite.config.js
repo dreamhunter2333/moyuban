@@ -16,6 +16,7 @@ export default defineConfig({
         enabled: true
       },
       workbox: {
+        navigateFallbackDenylist: [/^\/api/],
         disableDevLogs: true,
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
       },
