@@ -17,8 +17,7 @@ export default defineConfig({
       },
       workbox: {
         navigateFallbackDenylist: [/^\/api/],
-        disableDevLogs: true,
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        disableDevLogs: true
       },
       manifest: {
         name: '摸鱼办',
