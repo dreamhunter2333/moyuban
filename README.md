@@ -22,3 +22,9 @@
 ## API
 
 API 文档: [https://moyu.awsl.icu/docs](https://moyu.awsl.icu/docs)
+
+## 节假日数据
+
+数据位于 `data/holidays.json`。截至 2026 年 11 月 5 日，尚未查到国务院办公厅发布的 2027 年完整放假通知；2027 年倒计时采用预计假期开始日期，放假及补班安排以正式通知为准。
+
+参考官网资料：[放假办法修改及2025年部分节假日安排六问](https://www.beijing.gov.cn/gongkai/hygq/202411/t20241113_3940063.html)、[武汉市政府：2027年春节可连休9天](https://www.wuhan.gov.cn/hdjl/rdhy/202611/t20261102_2872494.shtml)。
