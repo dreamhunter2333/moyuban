@@ -23,6 +23,13 @@
 
 API 文档: [https://moyu.awsl.icu/docs](https://moyu.awsl.icu/docs)
 
+摸鱼和帕鲁消息接口（`/api/moyu`、`/api/moyu_txt`、`/api/moyu_json`、`/api/palworld`、`/api/palworld_txt`、`/api/palworld_json`）支持：
+
+- `day=15`：仅显示每月 15 日发薪的倒计时；默认 `day=0` 显示常见发薪日。
+- `show_salary=false`：隐藏整个工资区，保留周六及节假日信息；默认 `true`。关闭时忽略 `day`。
+
+示例：[纯文本消息（隐藏工资区）](https://moyu.awsl.icu/api/moyu_txt?show_salary=false)。
+
 ## 节假日数据
 
 数据位于 `data/holidays.json`，倒计时采用假期开始日期。2027 年放假及补班安排已按 2026 年 11 月 5 日发布的《国务院办公厅关于2027年部分节假日安排的通知》（国办发明电〔2026〕10号）更新。

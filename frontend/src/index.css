@@ -246,6 +246,12 @@ textarea {
   color: var(--color-muted-foreground);
 }
 
+.home-message > p:nth-of-type(4) {
+  margin-top: 1rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
 .home-message > h2 {
   margin: 2rem 0 0;
   padding-bottom: 0.875rem;
@@ -285,7 +291,6 @@ textarea {
   padding-block: 0.5rem;
 }
 
-.home-message > ul:first-of-type > li:last-child,
 .home-message > ul:nth-of-type(2) > li:first-child {
   color: var(--color-primary);
   font-weight: 600;
@@ -348,20 +353,20 @@ textarea {
   }
 
   .home-message > h2:first-of-type {
-    grid-area: 5 / 1;
+    grid-area: 6 / 1;
   }
 
   .home-message > ul:first-of-type {
-    grid-area: 6 / 1;
+    grid-area: 7 / 1;
     grid-template-columns: minmax(0, 1fr);
   }
 
   .home-message > h2:nth-of-type(2) {
-    grid-area: 5 / 2;
+    grid-area: 6 / 2;
   }
 
   .home-message > ul:nth-of-type(2) {
-    grid-area: 6 / 2;
+    grid-area: 7 / 2;
   }
 }
 

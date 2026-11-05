@@ -7,9 +7,9 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 
 from router.models import Holiday
 
-from .moyu_config import HOLIDAY_TITLE_TXT, MO_YU_TEMPLATE_DAY_N_TXT, MO_YU_TEMPLATE_TXT, MoyuConfigHelper
-from .moyu_config import MO_YU_TEMPLATE, MO_YU_TEMPLATE_DAY_N, TZ, WEEK_DAYS, HOLIDAY_TITLE
-from .moyu_config import PALU_TEMPLATE, PALU_TEMPLATE_DAY_N, PALU_TEMPLATE_TIPS
+from .moyu_config import HOLIDAY_TITLE_TXT, MO_YU_TEMPLATE_TXT, MoyuConfigHelper
+from .moyu_config import MO_YU_TEMPLATE, TZ, WEEK_DAYS, HOLIDAY_TITLE
+from .moyu_config import PALU_TEMPLATE, PALU_TEMPLATE_TIPS, SALARY_TEMPLATE, SALARY_TEMPLATE_DAY_N
 
 router = APIRouter()
 
@@ -28,37 +28,15 @@ def get_salaryday(now: datetime, day: int) -> int:
     ).days
 
 
-@router.get("/api/moyu_info", response_class=JSONResponse, tags=["moyu"])
-def get_moyu_info() -> List[Holiday]:
-    return MoyuConfigHelper.get_holidays()
-
-@router.get("/api/moyu_json", response_class=JSONResponse, tags=["moyu"])
-def get_json_moyu_message(day: int = 0) -> str:
-    return get_moyu_message(day)
-
-
-@router.get("/api/moyu", response_class=PlainTextResponse, tags=["moyu"])
-def get_moyu_message(day: int = 0) -> str:
-
-    res = ""
-
-    now = datetime.now(tz=TZ)
-    init_time = datetime(now.year, 1, 1, tzinfo=TZ) - relativedelta(days=1)
-    delta = now - init_time
-
-    moyu_template = MO_YU_TEMPLATE_DAY_N.format(
-        year=now.year, month=now.month, day=now.day,
-        weekday=WEEK_DAYS[now.weekday()],
-        passdays=delta.days,
-        passhours=(delta.seconds // 3600),
-        salaryday=day,
-        salarydayn=get_salaryday(now, day),
-        day_to_weekend=5 - now.weekday() if now.weekday() < 6 else 6
-    ) if day else MO_YU_TEMPLATE.format(
-        year=now.year, month=now.month, day=now.day,
-        weekday=WEEK_DAYS[now.weekday()],
-        passdays=delta.days,
-        passhours=(delta.seconds // 3600),
+def get_salary_message(now: datetime, day: int, show_salary: bool) -> str:
+    if not show_salary:
+        return ""
+    if day:
+        return SALARY_TEMPLATE_DAY_N.format(
+            salaryday=day,
+            salarydayn=get_salaryday(now, day),
+        )
+    return SALARY_TEMPLATE.format(
         salaryday1=(
             datetime(now.year, now.month, 1, tzinfo=TZ)
             + relativedelta(months=1, days=-1)
@@ -68,6 +46,33 @@ def get_moyu_message(day: int = 0) -> str:
         salaryday10=get_salaryday(now, 10),
         salaryday15=get_salaryday(now, 15),
         salaryday20=get_salaryday(now, 20),
+    )
+
+
+@router.get("/api/moyu_info", response_class=JSONResponse, tags=["moyu"])
+def get_moyu_info() -> List[Holiday]:
+    return MoyuConfigHelper.get_holidays()
+
+@router.get("/api/moyu_json", response_class=JSONResponse, tags=["moyu"])
+def get_json_moyu_message(day: int = 0, show_salary: bool = True) -> str:
+    return get_moyu_message(day, show_salary)
+
+
+@router.get("/api/moyu", response_class=PlainTextResponse, tags=["moyu"])
+def get_moyu_message(day: int = 0, show_salary: bool = True) -> str:
+
+    res = ""
+
+    now = datetime.now(tz=TZ)
+    init_time = datetime(now.year, 1, 1, tzinfo=TZ) - relativedelta(days=1)
+    delta = now - init_time
+
+    moyu_template = MO_YU_TEMPLATE.format(
+        year=now.year, month=now.month, day=now.day,
+        weekday=WEEK_DAYS[now.weekday()],
+        passdays=delta.days,
+        passhours=(delta.seconds // 3600),
+        salary=get_salary_message(now, day, show_salary),
         day_to_weekend=5 - now.weekday() if now.weekday() < 6 else 6
     )
     res += moyu_template
@@ -90,7 +95,7 @@ def get_moyu_message(day: int = 0) -> str:
 
 
 @router.get("/api/moyu_txt", response_class=PlainTextResponse, tags=["moyu"])
-def get_moyu_message_txt(day: int = 0) -> str:
+def get_moyu_message_txt(day: int = 0, show_salary: bool = True) -> str:
 
     res = ""
 
@@ -98,28 +103,12 @@ def get_moyu_message_txt(day: int = 0) -> str:
     init_time = datetime(now.year, 1, 1, tzinfo=TZ) - relativedelta(days=1)
     delta = now - init_time
 
-    moyu_template = MO_YU_TEMPLATE_DAY_N_TXT.format(
+    moyu_template = MO_YU_TEMPLATE_TXT.format(
         year=now.year, month=now.month, day=now.day,
         weekday=WEEK_DAYS[now.weekday()],
         passdays=delta.days,
         passhours=(delta.seconds // 3600),
-        salaryday=day,
-        salarydayn=get_salaryday(now, day),
-        day_to_weekend=5 - now.weekday() if now.weekday() < 6 else 6
-    ) if day else MO_YU_TEMPLATE_TXT.format(
-        year=now.year, month=now.month, day=now.day,
-        weekday=WEEK_DAYS[now.weekday()],
-        passdays=delta.days,
-        passhours=(delta.seconds // 3600),
-        salaryday1=(
-            datetime(now.year, now.month, 1, tzinfo=TZ)
-            + relativedelta(months=1, days=-1)
-            - datetime(now.year, now.month, now.day, tzinfo=TZ)
-        ).days,
-        salaryday5=get_salaryday(now, 5),
-        salaryday10=get_salaryday(now, 10),
-        salaryday15=get_salaryday(now, 15),
-        salaryday20=get_salaryday(now, 20),
+        salary=get_salary_message(now, day, show_salary).replace("## ", "").strip(),
         day_to_weekend=5 - now.weekday() if now.weekday() < 6 else 6
     )
     res += moyu_template
@@ -142,12 +131,12 @@ def get_moyu_message_txt(day: int = 0) -> str:
 
 
 @router.get("/api/palworld_json", response_class=JSONResponse, tags=["palworld"])
-def get_json_palworld_message(day: int = 0) -> str:
-    return get_palworld_message(day)
+def get_json_palworld_message(day: int = 0, show_salary: bool = True) -> str:
+    return get_palworld_message(day, show_salary)
 
 
 @router.get("/api/palworld", response_class=PlainTextResponse, tags=["palworld"])
-def get_palworld_message(day: int = 0) -> str:
+def get_palworld_message(day: int = 0, show_salary: bool = True) -> str:
 
     res = ""
 
@@ -155,28 +144,12 @@ def get_palworld_message(day: int = 0) -> str:
     init_time = datetime(now.year, 1, 1, tzinfo=TZ) - relativedelta(days=1)
     delta = now - init_time
 
-    moyu_template = PALU_TEMPLATE_DAY_N.format(
+    moyu_template = PALU_TEMPLATE.format(
         year=now.year, month=now.month, day=now.day,
         weekday=WEEK_DAYS[now.weekday()],
         passdays=delta.days,
         passhours=(delta.seconds // 3600),
-        salaryday=day,
-        salarydayn=get_salaryday(now, day),
-        day_to_weekend=5 - now.weekday() if now.weekday() < 6 else 6
-    ) if day else PALU_TEMPLATE.format(
-        year=now.year, month=now.month, day=now.day,
-        weekday=WEEK_DAYS[now.weekday()],
-        passdays=delta.days,
-        passhours=(delta.seconds // 3600),
-        salaryday1=(
-            datetime(now.year, now.month, 1, tzinfo=TZ)
-            + relativedelta(months=1, days=-1)
-            - datetime(now.year, now.month, now.day, tzinfo=TZ)
-        ).days,
-        salaryday5=get_salaryday(now, 5),
-        salaryday10=get_salaryday(now, 10),
-        salaryday15=get_salaryday(now, 15),
-        salaryday20=get_salaryday(now, 20),
+        salary=get_salary_message(now, day, show_salary),
         day_to_weekend=5 - now.weekday() if now.weekday() < 6 else 6
     )
     res += moyu_template
@@ -200,6 +173,6 @@ def get_palworld_message(day: int = 0) -> str:
 
 
 @router.get("/api/palworld_txt", response_class=PlainTextResponse, tags=["palworld"])
-def get_txt_palworld_message(day: int = 0) -> str:
-    res = get_palworld_message(day)
+def get_txt_palworld_message(day: int = 0, show_salary: bool = True) -> str:
+    res = get_palworld_message(day, show_salary)
     return res.replace("## ", "").replace("# ", "").strip()
