@@ -5,19 +5,23 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { api } from '@/api';
 import { useAppStore } from '@/store';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import { TOOLS } from '@/lib/tools';
 
 export function HomePage() {
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const salaryday = useAppStore((state) => state.salaryday);
+  const showSalary = useAppStore((state) => state.showSalary);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
-        const data = await api.getMoyuMessage(salaryday || undefined);
+        const data = await api.getMoyuMessage(salaryday || undefined, showSalary);
         setContent(data);
       } catch (err) {
         setError('加载失败，请刷新重试');
@@ -28,7 +32,7 @@ export function HomePage() {
     };
 
     fetchData();
-  }, [salaryday]);
+  }, [salaryday, showSalary]);
 
   if (loading) {
     return (
@@ -58,10 +62,30 @@ export function HomePage() {
   }
 
   return (
-    <article className="home-page" aria-label="摸鱼日历">
-      <div className="markdown-content home-message">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
-      </div>
-    </article>
+    <div className="home-layout">
+      <article className="home-page" aria-label="摸鱼日历">
+        <div className="markdown-content">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+        </div>
+      </article>
+      <aside className="quick-tools" aria-label="常用工具">
+        <div className="section-heading">
+          <h2>常用工具</h2>
+          <Link to="/tools">全部工具 <ArrowRight aria-hidden="true" /></Link>
+        </div>
+        <ul>
+          {TOOLS.map(({ id, title, description, icon: Icon, path }) => (
+            <li key={id}>
+              <Link to={path} className="tool-index-link">
+                <Icon aria-hidden="true" />
+                <span><strong>{title}</strong><small>{description}</small></span>
+                <ArrowRight className="tool-index-arrow" aria-hidden="true" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <Link to="/settings" className="preferences-link">管理工资显示与工作时间 <ArrowRight aria-hidden="true" /></Link>
+      </aside>
+    </div>
   );
 }

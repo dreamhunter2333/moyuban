@@ -165,3 +165,7 @@ cython_debug/
 .env
 .vercel
 .DS_Store
+
+.impeccable/review/
+.impeccable/mocks/
+.impeccable/direction-options.json

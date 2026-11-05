@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 
 interface ToolLayoutProps {
   title: string;
@@ -15,7 +15,7 @@ export function ToolLayout({ title, description, children }: ToolLayoutProps) {
 
   return (
     <div className="page-content">
-      <div className="flex items-center gap-3 mb-6 sm:mb-8">
+      <header className="page-heading tool-heading">
         <Button
           variant="ghost"
           size="icon"
@@ -24,12 +24,12 @@ export function ToolLayout({ title, description, children }: ToolLayoutProps) {
         >
           <ArrowLeft className="h-5 w-5" />
         </Button>
-        <h1 className="text-xl sm:text-2xl font-semibold tracking-tight">{title}</h1>
-      </div>
-      <Card className="min-h-[400px]">
-        <CardHeader>
-          <CardTitle>{description || title}</CardTitle>
-        </CardHeader>
+        <div>
+          <h1>{title}</h1>
+          {description && <p>{description}</p>}
+        </div>
+      </header>
+      <Card className="tool-surface">
         <CardContent>
           {children}
         </CardContent>

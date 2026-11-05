@@ -1,108 +1,82 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Moon, Sun, Menu, X, Github, Fish } from 'lucide-react';
+import { Link, NavLink } from 'react-router-dom';
+import { CalendarDays, Clock3, CodeXml, Fish, Info, Menu, Moon, Settings2, Sun, Wrench, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/store';
 import { useIsMobile } from '@/hooks';
 
 const navItems = [
-  { path: '/', label: '首页' },
-  { path: '/tools', label: '工具' },
-  { path: '/progress', label: '进度' },
-  { path: '/about', label: '关于' },
+  { path: '/', label: '摸鱼日历', icon: CalendarDays },
+  { path: '/tools', label: '工具集', icon: Wrench },
+  { path: '/progress', label: '时间进度', icon: Clock3 },
+  { path: '/settings', label: '设置', icon: Settings2 },
+  { path: '/about', label: '关于', icon: Info },
 ];
 
 export function Header() {
-  const location = useLocation();
   const isMobile = useIsMobile();
   const [menuOpen, setMenuOpen] = useState(false);
   const { isDark, toggleTheme } = useAppStore();
 
+  const navigation = (
+    <nav className="navigation-links" aria-label="主导航">
+      {navItems.map(({ path, label, icon: Icon }) => (
+        <Button key={path} asChild variant="ghost" className="navigation-link">
+          <NavLink to={path} end={path === '/'} onClick={() => setMenuOpen(false)}>
+            <Icon aria-hidden="true" />
+            {label}
+          </NavLink>
+        </Button>
+      ))}
+    </nav>
+  );
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-card">
-      <div className="app-width flex h-18 items-center gap-5">
-        <Link to="/" className="flex shrink-0 items-center gap-2.5 mr-2 rounded-md">
-          <Fish className="h-7 w-7 text-primary" aria-hidden="true" />
-          <span className="font-semibold text-lg tracking-tight">摸鱼办</span>
-        </Link>
-
-        {!isMobile && (
-          <nav className="flex items-center gap-1" aria-label="主导航">
-            {navItems.map((item) => (
-              <Button
-                key={item.path}
-                asChild
-                variant={location.pathname === item.path ? 'secondary' : 'ghost'}
-                className="app-nav-link"
-              >
-                <Link to={item.path} aria-current={location.pathname === item.path ? 'page' : undefined}>
-                  {item.label}
-                </Link>
-              </Button>
-            ))}
-          </nav>
+    <header className="app-navigation">
+      <Link to="/" className="navigation-brand" aria-label="摸鱼办首页">
+        <Fish className="size-7" aria-hidden="true" />
+        <span>摸鱼办</span>
+      </Link>
+      {!isMobile && navigation}
+      <div className="navigation-actions">
+        {isMobile && (
+          <Button asChild variant="ghost" className="mobile-tools-link">
+            <Link to="/tools">工具</Link>
+          </Button>
         )}
-
-        <div className="flex-1" />
-
-        <div className="flex items-center gap-0.5 sm:gap-1">
+        <Button
+          variant="ghost"
+          size={isMobile ? 'icon' : 'default'}
+          onClick={toggleTheme}
+          aria-label={isDark ? '切换浅色模式' : '切换深色模式'}
+          className="navigation-action"
+        >
+          {isDark ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
+          {!isMobile && <span>{isDark ? '浅色模式' : '深色模式'}</span>}
+        </Button>
+        {!isMobile && (
+          <Button asChild variant="ghost" className="navigation-action">
+            <a href="https://github.com/dreamhunter2333/moyuban" target="_blank" rel="noopener noreferrer">
+              <CodeXml aria-hidden="true" />
+              GitHub
+              <span className="sr-only">（新窗口）</span>
+            </a>
+          </Button>
+        )}
+        {isMobile && (
           <Button
             variant="ghost"
             size="icon"
-            onClick={toggleTheme}
-            aria-label={isDark ? '切换浅色模式' : '切换深色模式'}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? '收起导航' : '展开导航'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
           >
-            {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
           </Button>
-
-          <Button asChild variant="ghost" size="icon">
-            <a
-              href="https://github.com/dreamhunter2333/moyuban"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="查看 GitHub 源码（新窗口）"
-            >
-              <Github className="h-5 w-5" />
-            </a>
-          </Button>
-
-          {isMobile && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={menuOpen ? '收起导航' : '展开导航'}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-navigation"
-            >
-              {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
-          )}
-        </div>
+        )}
       </div>
-
-      {isMobile && menuOpen && (
-        <nav id="mobile-navigation" className="border-t bg-card py-3" aria-label="主导航">
-          <div className="app-width grid grid-cols-2 gap-2">
-            {navItems.map((item) => (
-              <Button
-                key={item.path}
-                asChild
-                variant={location.pathname === item.path ? 'secondary' : 'ghost'}
-                className="app-nav-link justify-start"
-              >
-                <Link
-                  to={item.path}
-                  onClick={() => setMenuOpen(false)}
-                  aria-current={location.pathname === item.path ? 'page' : undefined}
-                >
-                  {item.label}
-                </Link>
-              </Button>
-            ))}
-          </div>
-        </nav>
-      )}
+      {isMobile && menuOpen && <div id="mobile-navigation">{navigation}</div>}
     </header>
   );
 }

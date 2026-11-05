@@ -11,8 +11,12 @@ export interface MoyuResponse {
 }
 
 export const api = {
-  async getMoyuMessage(day?: number): Promise<string> {
-    const url = day ? `${API_BASE}/api/moyu?day=${day}` : `${API_BASE}/api/moyu`;
+  async getMoyuMessage(day?: number, showSalary = true): Promise<string> {
+    const params = new URLSearchParams();
+    if (day) params.set('day', String(day));
+    if (!showSalary) params.set('show_salary', 'false');
+    const query = params.toString();
+    const url = `${API_BASE}/api/moyu${query ? `?${query}` : ''}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to fetch moyu message');

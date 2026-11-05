@@ -1,16 +1,17 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { lazy } from 'react';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Layout } from '@/components/layout';
-import {
-  HomePage,
-  ToolsPage,
-  ProgressPage,
-  AboutPage,
-  PasswordPage,
-  UrlEncoderPage,
-  Base64Page,
-  ShareToolPage,
-} from '@/pages';
+import { HomePage } from '@/pages/home';
+import { ToolsPage } from '@/pages/tools';
+
+const ProgressPage = lazy(() => import('@/pages/progress').then((page) => ({ default: page.ProgressPage })));
+const AboutPage = lazy(() => import('@/pages/about').then((page) => ({ default: page.AboutPage })));
+const SettingsPage = lazy(() => import('@/pages/settings').then((page) => ({ default: page.SettingsPage })));
+const PasswordPage = lazy(() => import('@/pages/tools/password').then((page) => ({ default: page.PasswordPage })));
+const UrlEncoderPage = lazy(() => import('@/pages/tools/url-encoder').then((page) => ({ default: page.UrlEncoderPage })));
+const Base64Page = lazy(() => import('@/pages/tools/base64').then((page) => ({ default: page.Base64Page })));
+const ShareToolPage = lazy(() => import('@/pages/tools/share-tool').then((page) => ({ default: page.ShareToolPage })));
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             </Route>
             <Route path="progress" element={<ProgressPage />} />
             <Route path="about" element={<AboutPage />} />
+            <Route path="settings" element={<SettingsPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -3,6 +3,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useAppStore } from '@/store';
+import { SalarySettings } from '@/components/salary-settings';
 
 const WEEKDAYS = [
   { value: 1, label: '周一' },
@@ -15,7 +16,7 @@ const WEEKDAYS = [
 ];
 
 export function SettingsPage() {
-  const { salaryday, progressSettings, setSalaryday, setProgressSettings } = useAppStore();
+  const { progressSettings, setProgressSettings } = useAppStore();
 
   const handleWorkdayChange = (day: number, checked: boolean) => {
     const newWorkdays = checked
@@ -33,21 +34,7 @@ export function SettingsPage() {
           <CardTitle className="text-lg">发薪日设置</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="salaryday">发薪日 (每月)</Label>
-            <Input
-              id="salaryday"
-              type="number"
-              min={0}
-              max={28}
-              value={salaryday}
-              onChange={(e) => setSalaryday(Number(e.target.value))}
-              placeholder="0 表示不显示"
-            />
-            <p className="text-sm text-muted-foreground">
-              设置每月发工资的日期 (0-28)，0 表示不显示发薪日倒计时
-            </p>
-          </div>
+          <SalarySettings />
         </CardContent>
       </Card>
 

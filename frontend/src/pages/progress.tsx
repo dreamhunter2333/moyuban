@@ -9,6 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Settings, X } from 'lucide-react';
 import { useAppStore } from '@/store';
 import { cn } from '@/lib/utils';
+import { SalarySettings } from '@/components/salary-settings';
 
 interface ProgressItemProps {
   title: string;
@@ -37,6 +38,7 @@ function ProgressItem({ title, value, description, extra }: ProgressItemProps) {
       </CardHeader>
       <CardContent>
         <Progress
+          aria-label={title}
           value={value}
           className="h-3"
           indicatorClassName={cn(getColor(value))}
@@ -58,7 +60,7 @@ const WEEKDAYS = [
 ];
 
 function SettingsPanel({ onClose }: { onClose: () => void }) {
-  const { salaryday, progressSettings, setSalaryday, setProgressSettings } = useAppStore();
+  const { progressSettings, setProgressSettings } = useAppStore();
 
   const handleWorkdayChange = (day: number, checked: boolean) => {
     const newWorkdays = checked
@@ -78,21 +80,7 @@ function SettingsPanel({ onClose }: { onClose: () => void }) {
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="salaryday">发薪日 (每月)</Label>
-          <Input
-            id="salaryday"
-            type="number"
-            min={0}
-            max={28}
-            value={salaryday}
-            onChange={(e) => setSalaryday(Number(e.target.value))}
-            placeholder="0 表示不显示"
-          />
-          <p className="text-sm text-muted-foreground">
-            设置每月发工资的日期 (0-28)，0 表示不显示发薪日倒计时
-          </p>
-        </div>
+        <SalarySettings />
 
         <div className="space-y-2">
           <Label>工作日</Label>

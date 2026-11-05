@@ -31,8 +31,9 @@ export function UrlEncoderPage() {
     <ToolLayout title="URL 编码/解码" description="URL 编码解码工具">
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label>输入</Label>
+          <Label htmlFor="url-input">输入</Label>
           <Textarea
+            id="url-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="输入需要编码/解码的内容..."
@@ -55,10 +56,10 @@ export function UrlEncoderPage() {
         </div>
         {output && (
           <div className="space-y-2">
-            <Label>输出</Label>
+            <Label htmlFor="url-output">输出</Label>
             <div className="flex gap-2">
-              <Textarea value={output} readOnly rows={5} className="font-mono" />
-              <Button variant="outline" onClick={() => copy(output)} className="shrink-0">
+              <Textarea id="url-output" value={output} readOnly rows={5} className="font-mono" />
+              <Button variant="outline" onClick={() => copy(output)} className="shrink-0" aria-label={copied ? '结果已复制' : '复制结果'}>
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
               </Button>
             </div>

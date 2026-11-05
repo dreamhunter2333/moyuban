@@ -30,8 +30,9 @@ export function PasswordPage() {
     <ToolLayout title="密码生成" description="生成安全密码">
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label>密码长度</Label>
+          <Label htmlFor="password-length">密码长度</Label>
           <Input
+            id="password-length"
             type="number"
             min={8}
             max={64}
@@ -40,6 +41,7 @@ export function PasswordPage() {
             className="w-full"
           />
           <Slider
+            aria-label="密码长度"
             value={[length]}
             onValueChange={([value]) => setLength(value)}
             min={8}
@@ -55,8 +57,8 @@ export function PasswordPage() {
         </div>
         {token && (
           <div className="flex gap-2">
-            <Input value={token} readOnly className="font-mono" />
-            <Button variant="outline" onClick={() => copy(token)}>
+            <Input value={token} readOnly className="font-mono" aria-label="生成的密码" />
+            <Button variant="outline" onClick={() => copy(token)} aria-label={copied ? '密码已复制' : '复制密码'}>
               {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
             </Button>
           </div>

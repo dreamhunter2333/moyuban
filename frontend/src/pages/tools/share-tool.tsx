@@ -123,10 +123,10 @@ export function ShareToolPage() {
         </CardHeader>
         <CardContent>
           <Tabs value={contentType} onValueChange={(v) => setContentType(v as ContentType)}>
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="text">纯文本</TabsTrigger>
-              <TabsTrigger value="html">HTML</TabsTrigger>
-              <TabsTrigger value="markdown">Markdown</TabsTrigger>
+            <TabsList className="grid h-auto w-full grid-cols-3">
+              <TabsTrigger value="text" className="min-h-11">纯文本</TabsTrigger>
+              <TabsTrigger value="html" className="min-h-11">HTML</TabsTrigger>
+              <TabsTrigger value="markdown" className="min-h-11">Markdown</TabsTrigger>
             </TabsList>
           </Tabs>
         </CardContent>
@@ -141,6 +141,7 @@ export function ShareToolPage() {
         <CardContent>
           {isEditing ? (
             <Textarea
+              aria-label="要分享的内容"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="输入要分享的内容..."
@@ -148,7 +149,7 @@ export function ShareToolPage() {
               className="font-mono"
             />
           ) : (
-            <div className="min-h-[200px] p-4 border rounded-md bg-muted/30">
+            <div className="min-h-[200px]">
               {content ? renderContent() : <span className="text-muted-foreground">暂无内容</span>}
             </div>
           )}
@@ -167,7 +168,7 @@ export function ShareToolPage() {
                 生成分享链接
               </Button>
               {shareUrl && (
-                <Button variant="outline" onClick={() => copy(shareUrl)}>
+                <Button variant="outline" onClick={() => copy(shareUrl)} aria-label={copied ? '分享链接已复制' : '复制分享链接'}>
                   {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                 </Button>
               )}
