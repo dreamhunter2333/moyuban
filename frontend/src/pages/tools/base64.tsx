@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Base64 } from 'js-base64';
-import { Copy, Check, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -69,19 +69,21 @@ export function Base64Page() {
         )}
         <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
         {/* 左侧：原文 */}
-        <div className="space-y-2 flex-1">
+        <div className="space-y-2 w-full min-w-0 flex-1">
           <div className="flex items-center justify-between">
-            <Label>原文</Label>
+            <Label htmlFor="base64-original">原文</Label>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => copyLeft(leftText)}
               disabled={!leftText}
+              aria-label={copiedLeft ? '原文已复制' : '复制原文'}
             >
               {copiedLeft ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
             </Button>
           </div>
           <Textarea
+            id="base64-original"
             value={leftText}
             onChange={(e) => setLeftText(e.target.value)}
             placeholder="输入原文..."
@@ -101,19 +103,21 @@ export function Base64Page() {
         </div>
 
         {/* 右侧：Base64 */}
-        <div className="space-y-2 flex-1">
+        <div className="space-y-2 w-full min-w-0 flex-1">
           <div className="flex items-center justify-between">
-            <Label>Base64</Label>
+            <Label htmlFor="base64-encoded">Base64</Label>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => copyRight(rightText)}
               disabled={!rightText}
+              aria-label={copiedRight ? 'Base64 已复制' : '复制 Base64'}
             >
               {copiedRight ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
             </Button>
           </div>
           <Textarea
+            id="base64-encoded"
             value={rightText}
             onChange={(e) => setRightText(e.target.value)}
             placeholder="输入 Base64..."

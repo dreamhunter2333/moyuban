@@ -32,8 +32,8 @@ export function HomePage() {
 
   if (loading) {
     return (
-      <Card className="container max-w-screen-xl mx-auto px-4">
-        <CardContent className="p-6 space-y-4">
+      <Card aria-busy="true" aria-label="正在加载摸鱼日历">
+        <CardContent className="p-5 sm:p-8 space-y-4">
           <Skeleton className="h-8 w-3/4" />
           <Skeleton className="h-4 w-full" />
           <Skeleton className="h-4 w-full" />
@@ -49,8 +49,8 @@ export function HomePage() {
 
   if (error) {
     return (
-      <Card className="container max-w-screen-xl mx-auto px-4">
-        <CardContent className="p-6 text-center text-destructive">
+      <Card role="alert">
+        <CardContent className="p-8 text-center text-destructive">
           {error}
         </CardContent>
       </Card>
@@ -58,12 +58,10 @@ export function HomePage() {
   }
 
   return (
-    <Card className="container max-w-screen-xl mx-auto px-4">
-      <CardContent className="p-6">
-        <div className="markdown-content">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
-        </div>
-      </CardContent>
-    </Card>
+    <article className="home-page" aria-label="摸鱼日历">
+      <div className="markdown-content home-message">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+      </div>
+    </article>
   );
 }

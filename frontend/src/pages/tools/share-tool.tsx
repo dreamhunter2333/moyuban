@@ -88,8 +88,8 @@ export function ShareToolPage() {
   const qrSize = isMobile ? Math.min(window.innerWidth - 80, 200) : 200;
 
   return (
-    <div className="container max-w-screen-xl mx-auto px-4 space-y-6">
-      <div className="flex items-center gap-4">
+    <div className="page-content space-y-6">
+      <div className="flex items-center gap-3">
         <Button
           variant="ghost"
           size="icon"
@@ -98,7 +98,7 @@ export function ShareToolPage() {
         >
           <ArrowLeft className="h-5 w-5" />
         </Button>
-        <h1 className="text-2xl font-bold flex-1">分享工具</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold tracking-tight flex-1">分享工具</h1>
         <Button
           variant="outline"
           onClick={() => setIsEditing(!isEditing)}

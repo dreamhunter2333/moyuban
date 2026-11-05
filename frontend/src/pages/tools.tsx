@@ -1,6 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import { Lock, Link2, FileCode, Share2 } from 'lucide-react';
-import { Card } from '@/components/ui/card';
+import { Link } from 'react-router-dom';
+import { Lock, Link2, FileCode, Share2, ArrowUpRight } from 'lucide-react';
 
 const TOOLS = [
   {
@@ -34,28 +33,27 @@ const TOOLS = [
 ];
 
 export function ToolsPage() {
-  const navigate = useNavigate();
-
   return (
-    <div className="container max-w-screen-xl mx-auto px-4">
-      <h1 className="text-2xl font-bold mb-6">工具集</h1>
-      <div className="grid gap-4 md:grid-cols-2">
+    <div className="page-content">
+      <h1 className="text-2xl font-semibold tracking-tight mb-6 sm:mb-8">工具集</h1>
+      <div className="grid gap-x-10 md:grid-cols-2">
         {TOOLS.map(({ id, title, description, icon: Icon, path }) => (
-          <Card
+          <Link
             key={id}
-            className="cursor-pointer hover:shadow-lg transition-shadow min-h-[120px] p-6"
-            onClick={() => navigate(path)}
+            to={path}
+            className="tool-link group"
           >
             <div className="flex items-center gap-3 w-full">
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <Icon className="h-6 w-6 text-primary" />
+              <div className="p-3 bg-muted rounded-xl shrink-0">
+                <Icon className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
               </div>
               <div>
-                <div className="font-semibold leading-none tracking-tight text-lg">{title}</div>
+                <h2 className="font-medium leading-6 text-base">{title}</h2>
                 <div className="text-sm text-muted-foreground mt-1.5">{description}</div>
               </div>
             </div>
-          </Card>
+            <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-primary" aria-hidden="true" />
+          </Link>
         ))}
       </div>
     </div>

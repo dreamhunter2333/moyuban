@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 
 export function AboutPage() {
   return (
-    <div className="container max-w-screen-xl mx-auto px-4">
+    <div className="page-content">
       <Card>
         <CardContent className="p-8 text-center space-y-6">
           <div className="flex justify-center">

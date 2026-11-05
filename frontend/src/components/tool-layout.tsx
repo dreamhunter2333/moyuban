@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -14,8 +14,8 @@ export function ToolLayout({ title, description, children }: ToolLayoutProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="container max-w-screen-xl mx-auto px-4">
-      <div className="flex items-center gap-4 mb-6">
+    <div className="page-content">
+      <div className="flex items-center gap-3 mb-6 sm:mb-8">
         <Button
           variant="ghost"
           size="icon"
@@ -24,7 +24,7 @@ export function ToolLayout({ title, description, children }: ToolLayoutProps) {
         >
           <ArrowLeft className="h-5 w-5" />
         </Button>
-        <h1 className="text-2xl font-bold">{title}</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold tracking-tight">{title}</h1>
       </div>
       <Card className="min-h-[400px]">
         <CardHeader>

@@ -72,7 +72,7 @@ function SettingsPanel({ onClose }: { onClose: () => void }) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>设置</CardTitle>
-          <Button variant="ghost" size="icon" onClick={onClose}>
+          <Button variant="ghost" size="icon" onClick={onClose} aria-label="关闭设置">
             <X className="h-5 w-5" />
           </Button>
         </div>
@@ -286,11 +286,11 @@ export function ProgressPage() {
   };
 
   return (
-    <div className="container max-w-screen-xl mx-auto px-4">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">时间进度</h1>
-        <div className="flex items-center gap-3">
-          <Badge variant="secondary" className="text-lg px-3 py-1">
+    <div className="page-content">
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-6 sm:mb-8">
+        <h1 className="text-2xl font-semibold tracking-tight">时间进度</h1>
+        <div className="flex items-center gap-2 sm:gap-3">
+          <Badge variant="secondary" className="text-sm tabular-nums px-3 py-1.5">
             {formatTime(now)}
           </Badge>
           <Button

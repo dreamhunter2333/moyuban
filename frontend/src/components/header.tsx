@@ -4,7 +4,6 @@ import { Moon, Sun, Menu, X, Github, Fish } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/store';
 import { useIsMobile } from '@/hooks';
-import { cn } from '@/lib/utils';
 
 const navItems = [
   { path: '/', label: '首页' },
@@ -20,56 +19,61 @@ export function Header() {
   const { isDark, toggleTheme } = useAppStore();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 max-w-screen-xl items-center mx-auto px-4">
-        <Link to="/" className="flex items-center gap-2 mr-6">
-          <Fish className="h-7 w-7 text-primary" />
-          <span className="font-bold text-xl hidden sm:inline">摸鱼办</span>
+    <header className="sticky top-0 z-50 w-full border-b bg-card">
+      <div className="app-width flex h-18 items-center gap-5">
+        <Link to="/" className="flex shrink-0 items-center gap-2.5 mr-2 rounded-md">
+          <Fish className="h-7 w-7 text-primary" aria-hidden="true" />
+          <span className="font-semibold text-lg tracking-tight">摸鱼办</span>
         </Link>
 
         {!isMobile && (
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-1" aria-label="主导航">
             {navItems.map((item) => (
-              <Link key={item.path} to={item.path}>
-                <Button
-                  variant={location.pathname === item.path ? 'secondary' : 'ghost'}
-                  size="default"
-                >
+              <Button
+                key={item.path}
+                asChild
+                variant={location.pathname === item.path ? 'secondary' : 'ghost'}
+                className="app-nav-link"
+              >
+                <Link to={item.path} aria-current={location.pathname === item.path ? 'page' : undefined}>
                   {item.label}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             ))}
           </nav>
         )}
 
         <div className="flex-1" />
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-0.5 sm:gap-1">
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            aria-label="Toggle theme"
+            aria-label={isDark ? '切换浅色模式' : '切换深色模式'}
           >
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
 
-          <a
-            href="https://github.com/dreamhunter2333/moyuban"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button variant="ghost" size="icon" aria-label="GitHub">
+          <Button asChild variant="ghost" size="icon">
+            <a
+              href="https://github.com/dreamhunter2333/moyuban"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="查看 GitHub 源码（新窗口）"
+            >
               <Github className="h-5 w-5" />
-            </Button>
-          </a>
+            </a>
+          </Button>
 
           {isMobile && (
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle menu"
+              aria-label={menuOpen ? '收起导航' : '展开导航'}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
             >
               {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -78,21 +82,23 @@ export function Header() {
       </div>
 
       {isMobile && menuOpen && (
-        <nav className="border-t bg-background p-4">
-          <div className="flex flex-col gap-2">
+        <nav id="mobile-navigation" className="border-t bg-card py-3" aria-label="主导航">
+          <div className="app-width grid grid-cols-2 gap-2">
             {navItems.map((item) => (
-              <Link
+              <Button
                 key={item.path}
-                to={item.path}
-                onClick={() => setMenuOpen(false)}
+                asChild
+                variant={location.pathname === item.path ? 'secondary' : 'ghost'}
+                className="app-nav-link justify-start"
               >
-                <Button
-                  variant={location.pathname === item.path ? 'secondary' : 'ghost'}
-                  className={cn('w-full justify-start')}
+                <Link
+                  to={item.path}
+                  onClick={() => setMenuOpen(false)}
+                  aria-current={location.pathname === item.path ? 'page' : undefined}
                 >
                   {item.label}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             ))}
           </div>
         </nav>
