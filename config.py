@@ -1,6 +1,6 @@
 import logging
 
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 logging.basicConfig(
@@ -10,10 +10,8 @@ logging.basicConfig(
 
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env")
     holidays_file: str = "data/holidays.json"
-
-    class Config:
-        env_file = ".env"
 
 
 settings = Settings()
