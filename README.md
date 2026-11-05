@@ -25,6 +25,6 @@ API 文档: [https://moyu.awsl.icu/docs](https://moyu.awsl.icu/docs)
 
 ## 节假日数据
 
-数据位于 `data/holidays.json`。截至 2026 年 11 月 5 日，尚未查到国务院办公厅发布的 2027 年完整放假通知；2027 年倒计时采用预计假期开始日期，放假及补班安排以正式通知为准。
+数据位于 `data/holidays.json`，倒计时采用假期开始日期。2027 年放假及补班安排已按 2026 年 11 月 5 日发布的《国务院办公厅关于2027年部分节假日安排的通知》（国办发明电〔2026〕10号）更新。
 
-参考官网资料：[放假办法修改及2025年部分节假日安排六问](https://www.beijing.gov.cn/gongkai/hygq/202411/t20241113_3940063.html)、[武汉市政府：2027年春节可连休9天](https://www.wuhan.gov.cn/hdjl/rdhy/202611/t20261102_2872494.shtml)。
+通知全文：[新华网转载中国政府网](https://www2.xinhuanet.com/politics/20261105/f90cd6ad4df94ab4833b141e52ccfc13/c.html)；放假日历：[北京市政府转载央视新闻](https://www.beijing.gov.cn/fuwu/bmfw/sy/jrts/202611/t20261105_4934226.html)。
