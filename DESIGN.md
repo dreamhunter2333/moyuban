@@ -1,57 +1,57 @@
 ---
 name: "摸鱼办 · 日常索引"
-description: "暖杏色导航、近白工作区与酒红操作构成的中文日常工具界面。"
+description: "浅鼠尾草导航、米白工作区与松绿操作构成的中文日常工具界面。"
 colors:
-  background: "#faf7f2"
-  foreground: "#342b27"
-  card: "#fffdf9"
-  card-foreground: "#342b27"
-  popover: "#fffdf9"
-  popover-foreground: "#342b27"
-  primary: "#873e4a"
-  primary-foreground: "#fffdf9"
-  secondary: "#f2e6dc"
-  secondary-foreground: "#4d3b31"
-  muted: "#f4eee7"
-  muted-foreground: "#74675d"
-  accent: "#ead9cd"
-  accent-foreground: "#4d3b31"
+  background: "#f7f8f3"
+  foreground: "#24332e"
+  card: "#fdfefa"
+  card-foreground: "#24332e"
+  popover: "#fdfefa"
+  popover-foreground: "#24332e"
+  primary: "#205b49"
+  primary-foreground: "#f8fcf9"
+  secondary: "#e8efe7"
+  secondary-foreground: "#345345"
+  muted: "#edf1ea"
+  muted-foreground: "#617166"
+  accent: "#dce9df"
+  accent-foreground: "#345345"
   destructive: "#b42332"
   destructive-foreground: "#fffdf9"
-  border: "#e0d3c8"
-  input: "#978376"
-  ring: "#873e4a"
+  border: "#d5dfd5"
+  input: "#819489"
+  ring: "#205b49"
   success: "#267045"
   warning: "#85551b"
-  sidebar: "#f1e0d2"
-  sidebar-foreground: "#514035"
-  sidebar-accent: "#e6cfc0"
-  sidebar-border: "#dbc5b4"
-  dark-background: "#171515"
-  dark-foreground: "#eee5de"
-  dark-card: "#211e1d"
-  dark-card-foreground: "#eee5de"
-  dark-popover: "#292321"
-  dark-popover-foreground: "#eee5de"
-  dark-primary: "#e9a8af"
-  dark-primary-foreground: "#2c171c"
-  dark-secondary: "#352c28"
-  dark-secondary-foreground: "#eee5de"
-  dark-muted: "#2c2724"
-  dark-muted-foreground: "#b9aaa0"
-  dark-accent: "#44332f"
-  dark-accent-foreground: "#eee5de"
+  sidebar: "#e7eee4"
+  sidebar-foreground: "#355043"
+  sidebar-accent: "#d7e3d6"
+  sidebar-border: "#cfddcc"
+  dark-background: "#111a17"
+  dark-foreground: "#e3ece5"
+  dark-card: "#19251f"
+  dark-card-foreground: "#e3ece5"
+  dark-popover: "#213028"
+  dark-popover-foreground: "#e3ece5"
+  dark-primary: "#91cdb7"
+  dark-primary-foreground: "#10291f"
+  dark-secondary: "#26382e"
+  dark-secondary-foreground: "#e3ece5"
+  dark-muted: "#223229"
+  dark-muted-foreground: "#a7b9ac"
+  dark-accent: "#304a3b"
+  dark-accent-foreground: "#e3ece5"
   dark-destructive: "#ff9da3"
   dark-destructive-foreground: "#2c171c"
-  dark-border: "#41352e"
-  dark-input: "#8b786c"
-  dark-ring: "#e9a8af"
+  dark-border: "#34483b"
+  dark-input: "#738d7c"
+  dark-ring: "#91cdb7"
   dark-success: "#8dcba0"
   dark-warning: "#e1ba79"
-  dark-sidebar: "#2b221e"
-  dark-sidebar-foreground: "#e5d6cb"
-  dark-sidebar-accent: "#43322b"
-  dark-sidebar-border: "#49372c"
+  dark-sidebar: "#17251d"
+  dark-sidebar-foreground: "#d2e2d5"
+  dark-sidebar-accent: "#293e30"
+  dark-sidebar-border: "#314735"
 typography:
   headline:
     fontFamily: "\"Noto Serif SC\", \"Noto Serif CJK SC\", \"Songti SC\", SimSun, serif"
@@ -171,9 +171,9 @@ components:
 
 **Creative North Star: "日常索引"**
 
-以暖杏色导航承载稳定的应用入口，以近白工作区承载每日信息和实际工具。深褐文字、宋体标题和酒红操作提供报刊索引的秩序；表单保持标准 shadcn 控件的清晰边界与熟悉行为。
+以浅鼠尾草导航承载稳定的应用入口，以近白工作区承载每日信息和实际工具。深墨绿文字、宋体标题和松绿操作提供报刊索引的秩序；表单保持标准 shadcn 控件的清晰边界与熟悉行为。
 
-密度来自分隔行、紧凑说明和一致留白，层级来自颜色与排版。深色主题保留相同语义和布局，只切换到暖黑底、暖灰表面与浅粉红操作。实现代码是本记录的视觉依据，方向探索 HTML 不是批准效果图。
+密度来自分隔行、紧凑说明和一致留白，层级来自颜色与排版。深色主题保留相同语义和布局，只切换到墨绿黑底、灰绿表面与浅薄荷绿操作。实现代码是本记录的视觉依据，方向探索 HTML 不是批准效果图。
 
 **Key Characteristics:**
 
@@ -185,24 +185,24 @@ components:
 
 ## Colors
 
-暖纸色与深褐色承担阅读，酒红承担操作；浅深主题的全部实际 CSS 颜色在 frontmatter 中逐一记录，`dark-` 前缀对应 `.dark` 的同名变量。
+暖纸色与深墨绿色承担阅读，松绿承担操作；浅深主题的全部实际 CSS 颜色在 frontmatter 中逐一记录，`dark-` 前缀对应 `.dark` 的同名变量。
 
 ### Primary
 
-- **酒红操作 / 暖粉操作**（primary / dark-primary）：主按钮、当前导航、链接、焦点、文字选区与光标。反色文字使用 primary-foreground。
+- **松绿操作 / 浅薄荷绿操作**（primary / dark-primary）：主按钮、当前导航、链接、焦点、文字选区与光标。反色文字使用 primary-foreground。
 - **异常红**（destructive）：错误文字、无效字段边界和错误提示的浅色背景；不是常规强调色。
 
 ### Secondary
 
-- **暖杏辅助**（secondary、accent）：次操作和交互底色；secondary-foreground / accent-foreground 承担对应文字。
+- **浅绿辅助**（secondary、accent）：次操作和交互底色；secondary-foreground / accent-foreground 承担对应文字。
 - **状态绿 / 琥珀**（success、warning）：现有语义状态变量，供有明确状态含义的反馈使用，不作为品牌装饰色。
 
 ### Neutral
 
-- **暖纸 / 暖黑**（background）：应用工作区背景。
-- **近白纸 / 暖灰纸**（card、popover）：内容容器和浮层，分别配套各自 foreground。
-- **深褐 / 米灰文字**（foreground）：正文与标题；muted-foreground 承担说明，muted 承担轻底色和骨架。
-- **浅杏导航**（sidebar）：专用导航表面，sidebar-foreground、sidebar-accent、sidebar-border 分别承担文字、悬停和分隔。
+- **暖纸 / 墨绿黑**（background）：应用工作区背景。
+- **近白纸 / 灰绿纸**（card、popover）：内容容器和浮层，分别配套各自 foreground。
+- **深墨绿 / 浅灰绿文字**（foreground）：正文与标题；muted-foreground 承担说明，muted 承担轻底色和骨架。
+- **鼠尾草绿导航**（sidebar）：专用导航表面，sidebar-foreground、sidebar-accent、sidebar-border 分别承担文字、悬停和分隔。
 - **纸边 / 字段边**（border、input）：内容分隔比字段描边更轻；ring 指示键盘定位。
 
 **The Semantic Theme Rule.** 新增界面使用语义颜色变量；浅深主题共同切换文字、表面、边界与操作色。
@@ -258,7 +258,7 @@ components:
 
 ### Buttons
 
-主操作为酒红填充与反色文字，默认高度（2.75rem）、水平内边距（1rem）、lg 圆角。悬停主色透明度（80%）；outline 使用页面底色与边界，悬停使用 muted；secondary 使用暖杏底，悬停混合 foreground（5%）；ghost 常态透明。小按钮（2.25rem），普通图标按钮为（2.75rem）方形。禁用不可交互且透明度（50%），无效状态使用 destructive 边界和环。组件库含 destructive/link 变体，当前核心页面主要使用 default、outline、secondary、ghost。
+主操作为松绿填充与反色文字，默认高度（2.75rem）、水平内边距（1rem）、lg 圆角。悬停主色透明度（80%）；outline 使用页面底色与边界，悬停使用 muted；secondary 使用浅绿底，悬停混合 foreground（5%）；ghost 常态透明。小按钮（2.25rem），普通图标按钮为（2.75rem）方形。禁用不可交互且透明度（50%），无效状态使用 destructive 边界和环。组件库含 destructive/link 变体，当前核心页面主要使用 default、outline、secondary、ghost。
 
 ### Chips
 
@@ -310,6 +310,6 @@ Markdown 只施加通用 h1/h2/h3、链接、表格、代码、引用和媒体�
 - **Don't** 给分享预览额外嵌套第二层卡片。
 - **Don't** 将单页遗留阈值色、方向草图或未实现的状态提升为全局规范。
 
-未规范化、未修复：进度页现存 green-500 / blue-500 / red-500 阈值配色只属于该页面的既有行为，不成为全局品牌或状态色；本记录不修改实现。未发现需写成规范的 craft-floor 拒绝项。
+未规范化、未修复：进度页现存 emerald-600 / sky-600 / rose-600（深色为对应 400） 阈值配色只属于该页面的既有行为，不成为全局品牌或状态色；阈值与计算逻辑保持不变。未发现需写成规范的 craft-floor 拒绝项。
 
 依据：`frontend/src/index.css`、共享导航与工具布局、`components/ui`、首页/工具/进度/设置/分享源码、字体 README/OFL。共享标题与复制控件已按生产构建检查 320 / 390 / 1440px 布局和键盘、复制、预览、设置交互。

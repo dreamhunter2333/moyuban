@@ -21,9 +21,9 @@ interface ProgressItemProps {
 
 function ProgressItem({ title, value, description, extra }: ProgressItemProps) {
   const getColor = (v: number) => {
-    if (v < 60) return 'bg-green-500';
-    if (v < 75) return 'bg-blue-500';
-    return 'bg-red-500';
+    if (v < 60) return 'bg-emerald-600 dark:bg-emerald-400';
+    if (v < 75) return 'bg-sky-600 dark:bg-sky-400';
+    return 'bg-rose-600 dark:bg-rose-400';
   };
 
   return (
