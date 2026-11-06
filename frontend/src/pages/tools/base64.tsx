@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Base64 } from 'js-base64';
-import { Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { ToolLayout } from '@/components/tool-layout';
 import { useClipboard } from '@/hooks';
+import { CopyButton } from '@/components/copy-button';
 
 export function Base64Page() {
   const [leftText, setLeftText] = useState('');
@@ -63,7 +63,7 @@ export function Base64Page() {
     <ToolLayout title="Base64 编码/解码" description="Base64 编码解码工具">
       <div className="space-y-4">
         {error && (
-          <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-md text-destructive text-sm">
+          <div role="alert" className="p-3 bg-destructive/10 border border-destructive/20 rounded-md text-destructive text-sm">
             {error}
           </div>
         )}
@@ -72,15 +72,14 @@ export function Base64Page() {
         <div className="space-y-2 w-full min-w-0 flex-1">
           <div className="flex items-center justify-between">
             <Label htmlFor="base64-original">原文</Label>
-            <Button
+            <CopyButton
+              copied={copiedLeft}
               variant="ghost"
-              size="sm"
               onClick={() => copyLeft(leftText)}
               disabled={!leftText}
-              aria-label={copiedLeft ? '原文已复制' : '复制原文'}
-            >
-              {copiedLeft ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-            </Button>
+              label="复制原文"
+              copiedLabel="原文已复制"
+            />
           </div>
           <Textarea
             id="base64-original"
@@ -88,7 +87,7 @@ export function Base64Page() {
             onChange={(e) => setLeftText(e.target.value)}
             placeholder="输入原文..."
             rows={10}
-            className="font-mono"
+            className="min-h-48 font-mono"
           />
         </div>
 
@@ -106,15 +105,14 @@ export function Base64Page() {
         <div className="space-y-2 w-full min-w-0 flex-1">
           <div className="flex items-center justify-between">
             <Label htmlFor="base64-encoded">Base64</Label>
-            <Button
+            <CopyButton
+              copied={copiedRight}
               variant="ghost"
-              size="sm"
               onClick={() => copyRight(rightText)}
               disabled={!rightText}
-              aria-label={copiedRight ? 'Base64 已复制' : '复制 Base64'}
-            >
-              {copiedRight ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-            </Button>
+              label="复制 Base64"
+              copiedLabel="Base64 已复制"
+            />
           </div>
           <Textarea
             id="base64-encoded"
@@ -122,7 +120,7 @@ export function Base64Page() {
             onChange={(e) => setRightText(e.target.value)}
             placeholder="输入 Base64..."
             rows={10}
-            className="font-mono"
+            className="min-h-48 font-mono"
           />
         </div>
         </div>

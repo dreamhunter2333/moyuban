@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { PageHeading } from '@/components/page-heading';
 
 interface ToolLayoutProps {
   title: string;
@@ -15,20 +16,20 @@ export function ToolLayout({ title, description, children }: ToolLayoutProps) {
 
   return (
     <div className="page-content">
-      <header className="page-heading tool-heading">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate('/tools')}
-          aria-label="返回工具列表"
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
-        <div>
-          <h1>{title}</h1>
-          {description && <p>{description}</p>}
-        </div>
-      </header>
+      <PageHeading
+        title={title}
+        description={description}
+        leading={
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate('/tools')}
+            aria-label="返回工具列表"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+        }
+      />
       <Card className="tool-surface">
         <CardContent>
           {children}

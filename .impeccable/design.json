@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-05T18:59:05.204578+00:00",
+  "generatedAt": "2026-11-06T02:11:04.749806+00:00",
   "title": "Design System: 摸鱼办",
   "extensions": {
     "colorMeta": {
@@ -708,7 +708,7 @@
     "typographyMeta": {
       "headline": {
         "displayName": "headline",
-        "purpose": "普通页面标题；变体见 Typography。"
+        "purpose": "应用页面通过 PageHeading 统一主标题；Markdown 标题继续使用通用排版。"
       },
       "markdown-heading": {
         "displayName": "markdown-heading",
@@ -874,6 +874,7 @@
       "暖色导航与独立工作区。",
       "标题宋体、正文无衬线，数字按需等宽。",
       "索引行共享图标、说明、箭头与定位反馈。",
+      "应用页面共享标题、操作区与复制反馈。",
       "细边界、低浮起、完整的深浅主题与键盘状态。"
     ],
     "rules": [

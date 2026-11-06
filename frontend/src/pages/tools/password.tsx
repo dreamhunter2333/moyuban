@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Copy, Check, RefreshCw } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -7,6 +7,7 @@ import { Slider } from '@/components/ui/slider';
 import { ToolLayout } from '@/components/tool-layout';
 import { useClipboard } from '@/hooks';
 import { api } from '@/api';
+import { CopyButton } from '@/components/copy-button';
 
 export function PasswordPage() {
   const [length, setLength] = useState(16);
@@ -58,9 +59,7 @@ export function PasswordPage() {
         {token && (
           <div className="flex gap-2">
             <Input value={token} readOnly className="font-mono" aria-label="生成的密码" />
-            <Button variant="outline" onClick={() => copy(token)} aria-label={copied ? '密码已复制' : '复制密码'}>
-              {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-            </Button>
+            <CopyButton copied={copied} onClick={() => copy(token)} label="复制密码" copiedLabel="密码已复制" />
           </div>
         )}
       </div>

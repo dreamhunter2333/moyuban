@@ -180,6 +180,7 @@ components:
 - 暖色导航与独立工作区。
 - 标题宋体、正文无衬线，数字按需等宽。
 - 索引行共享图标、说明、箭头与定位反馈。
+- 应用页面共享标题、操作区与复制反馈。
 - 细边界、低浮起、完整的深浅主题与键盘状态。
 
 ## Colors
@@ -220,7 +221,7 @@ components:
 
 ### Hierarchy
 
-- **Headline**：普通页面标题使用 headline token。Markdown h1 行高略放宽（1.55），手机降至（1.25rem）；分享页标题从（1.25rem）到（1.5rem）。设置页保留当前（700）字重。
+- **Headline**：普通页面统一由 PageHeading 使用 headline token，手机和桌面均为（1.5rem / 600 / 1.5）。Markdown h1 行高略放宽（1.55），手机降至（1.25rem），不受应用页面标题组件影响。
 - **Markdown heading**：h2 使用 markdown-heading；h3 为无衬线（1rem / 600 / 1.6）。
 - **Title**：卡片默认 title token，部分分区标题使用（1.125rem）；索引行标题为（0.875rem / 550），工具页提升至（1rem）。
 - **Body**：Markdown 使用 body token 并允许内容宽度自然伸展；全局正文行高（1.65），页面说明为（0.875rem / 1.8）。
@@ -285,6 +286,14 @@ Input 高度（2.75rem），字段描边使用 input，内边距（0.5rem 0.75re
 
 Markdown 只施加通用 h1/h2/h3、链接、表格、代码、引用和媒体排版。加载以 muted 骨架和状态语义表达；错误以 destructive 文字和 alert 表达；分享空预览使用 muted-foreground；复制成功用 Check 图标与可访问标签反馈。标签页选中项使用页面表面与轻阴影，禁用和键盘焦点沿用标准控件状态。
 
+### Shared page controls
+
+`components/page-heading.tsx` 统一工具布局、工具集、分享、进度、设置和关于页的标题。可选前置返回按钮、说明和操作区；窄屏操作区自然换行，标题与操作之间保持（1rem）间距，分区下留白（1.75rem）。
+
+`components/copy-button.tsx` 在五处复制入口复用 shadcn 图标按钮，提供（44px × 44px）操作区和一致的 Copy / Check 反馈。复制文本、成功状态和事件仍由原页面传入，不接管业务状态。两个设置入口使用 fieldset / legend 标注工作日分组，选项标签高度至少（44px）。
+
+分享标签栏根据（44px）选项和内边距自动计算高度，避免选中项越界；分享编辑器最小高度（16rem），Base64 双侧编辑器最小高度（12rem），随内容增长。
+
 ## Do's and Don'ts
 
 ### Do:
@@ -303,4 +312,4 @@ Markdown 只施加通用 h1/h2/h3、链接、表格、代码、引用和媒体�
 
 未规范化、未修复：进度页现存 green-500 / blue-500 / red-500 阈值配色只属于该页面的既有行为，不成为全局品牌或状态色；本记录不修改实现。未发现需写成规范的 craft-floor 拒绝项。
 
-依据：`frontend/src/index.css`、共享导航与工具布局、`components/ui`、首页/工具/进度/设置/分享源码、字体 README/OFL；记录阶段未重新构建或启动浏览器。
+依据：`frontend/src/index.css`、共享导航与工具布局、`components/ui`、首页/工具/进度/设置/分享源码、字体 README/OFL。共享标题与复制控件已按生产构建检查 320 / 390 / 1440px 布局和键盘、复制、预览、设置交互。

@@ -1,9 +1,11 @@
 import { Fish } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { PageHeading } from '@/components/page-heading';
 
 export function AboutPage() {
   return (
     <div className="page-content">
+      <PageHeading title="关于摸鱼办" />
       <Card>
         <CardContent className="p-8 text-center space-y-6">
           <div className="flex justify-center">
@@ -13,7 +15,6 @@ export function AboutPage() {
           </div>
 
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold">关于摸鱼办</h1>
             <p className="text-lg text-muted-foreground">
               这个人很懒，什么都没留下
             </p>

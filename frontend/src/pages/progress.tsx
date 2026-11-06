@@ -10,6 +10,7 @@ import { Settings, X } from 'lucide-react';
 import { useAppStore } from '@/store';
 import { cn } from '@/lib/utils';
 import { SalarySettings } from '@/components/salary-settings';
+import { PageHeading } from '@/components/page-heading';
 
 interface ProgressItemProps {
   title: string;
@@ -70,10 +71,10 @@ function SettingsPanel({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <Card className="mb-6">
+    <Card id="progress-settings" className="mb-6" role="region" aria-labelledby="progress-settings-title">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>设置</CardTitle>
+          <CardTitle id="progress-settings-title">设置</CardTitle>
           <Button variant="ghost" size="icon" onClick={onClose} aria-label="关闭设置">
             <X className="h-5 w-5" />
           </Button>
@@ -82,9 +83,9 @@ function SettingsPanel({ onClose }: { onClose: () => void }) {
       <CardContent className="space-y-6">
         <SalarySettings />
 
-        <div className="space-y-2">
-          <Label>工作日</Label>
-          <div className="flex flex-wrap gap-4">
+        <fieldset className="space-y-2">
+          <legend className="text-sm font-medium">工作日</legend>
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
             {WEEKDAYS.map(({ value, label }) => (
               <div key={value} className="flex items-center space-x-2">
                 <Checkbox
@@ -92,13 +93,13 @@ function SettingsPanel({ onClose }: { onClose: () => void }) {
                   checked={progressSettings.workdays.includes(value)}
                   onCheckedChange={(checked) => handleWorkdayChange(value, checked === true)}
                 />
-                <Label htmlFor={`workday-${value}`} className="cursor-pointer">
+                <Label htmlFor={`workday-${value}`} className="min-h-11 cursor-pointer">
                   {label}
                 </Label>
               </div>
             ))}
           </div>
-        </div>
+        </fieldset>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
@@ -275,22 +276,22 @@ export function ProgressPage() {
 
   return (
     <div className="page-content">
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-6 sm:mb-8">
-        <h1 className="text-2xl font-semibold tracking-tight">时间进度</h1>
-        <div className="flex items-center gap-2 sm:gap-3">
+      <PageHeading title="时间进度" actions={
+        <>
           <Badge variant="secondary" className="text-sm tabular-nums px-3 py-1.5">
             {formatTime(now)}
           </Badge>
           <Button
             variant="outline"
-            size="sm"
             onClick={() => setShowSettings(!showSettings)}
+            aria-expanded={showSettings}
+            aria-controls="progress-settings"
           >
             <Settings className="h-4 w-4 mr-2" />
             设置
           </Button>
-        </div>
-      </div>
+        </>
+      } />
 
       {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
 

@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { ToolLayout } from '@/components/tool-layout';
 import { useClipboard } from '@/hooks';
+import { CopyButton } from '@/components/copy-button';
 
 export function UrlEncoderPage() {
   const [input, setInput] = useState('');
@@ -59,9 +59,7 @@ export function UrlEncoderPage() {
             <Label htmlFor="url-output">输出</Label>
             <div className="flex gap-2">
               <Textarea id="url-output" value={output} readOnly rows={5} className="font-mono" />
-              <Button variant="outline" onClick={() => copy(output)} className="shrink-0" aria-label={copied ? '结果已复制' : '复制结果'}>
-                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-              </Button>
+              <CopyButton copied={copied} onClick={() => copy(output)} label="复制结果" copiedLabel="结果已复制" className="shrink-0" />
             </div>
           </div>
         )}

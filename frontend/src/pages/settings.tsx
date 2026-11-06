@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useAppStore } from '@/store';
 import { SalarySettings } from '@/components/salary-settings';
+import { PageHeading } from '@/components/page-heading';
 
 const WEEKDAYS = [
   { value: 1, label: '周一' },
@@ -26,82 +27,83 @@ export function SettingsPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold mb-6">设置</h1>
+    <div className="page-content max-w-2xl mx-auto">
+      <PageHeading title="设置" />
+      <div className="space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">发薪日设置</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <SalarySettings />
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">发薪日设置</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <SalarySettings />
-        </CardContent>
-      </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">工作时间设置</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <fieldset className="space-y-2">
+              <legend className="text-sm font-medium">工作日</legend>
+              <div className="flex flex-wrap gap-x-4 gap-y-1">
+                {WEEKDAYS.map(({ value, label }) => (
+                  <div key={value} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`workday-${value}`}
+                      checked={progressSettings.workdays.includes(value)}
+                      onCheckedChange={(checked) => handleWorkdayChange(value, checked === true)}
+                    />
+                    <Label htmlFor={`workday-${value}`} className="min-h-11 cursor-pointer">
+                      {label}
+                    </Label>
+                  </div>
+                ))}
+              </div>
+            </fieldset>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">工作时间设置</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-2">
-            <Label>工作日</Label>
-            <div className="flex flex-wrap gap-4">
-              {WEEKDAYS.map(({ value, label }) => (
-                <div key={value} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`workday-${value}`}
-                    checked={progressSettings.workdays.includes(value)}
-                    onCheckedChange={(checked) => handleWorkdayChange(value, checked === true)}
-                  />
-                  <Label htmlFor={`workday-${value}`} className="cursor-pointer">
-                    {label}
-                  </Label>
-                </div>
-              ))}
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="workStartHour">上班时间</Label>
+                <Input
+                  id="workStartHour"
+                  type="number"
+                  min={0}
+                  max={12}
+                  value={progressSettings.workStartHour}
+                  onChange={(e) => setProgressSettings({ workStartHour: Number(e.target.value) })}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="workEndHour">下班时间</Label>
+                <Input
+                  id="workEndHour"
+                  type="number"
+                  min={12}
+                  max={23}
+                  value={progressSettings.workEndHour}
+                  onChange={(e) => setProgressSettings({ workEndHour: Number(e.target.value) })}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="workStartHour">上班时间</Label>
+              <Label htmlFor="salary">日薪 (元)</Label>
               <Input
-                id="workStartHour"
+                id="salary"
                 type="number"
                 min={0}
-                max={12}
-                value={progressSettings.workStartHour}
-                onChange={(e) => setProgressSettings({ workStartHour: Number(e.target.value) })}
+                value={progressSettings.salary}
+                onChange={(e) => setProgressSettings({ salary: Number(e.target.value) })}
               />
+              <p className="text-sm text-muted-foreground">
+                用于计算工作时段内已赚取的金额
+              </p>
             </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="workEndHour">下班时间</Label>
-              <Input
-                id="workEndHour"
-                type="number"
-                min={12}
-                max={23}
-                value={progressSettings.workEndHour}
-                onChange={(e) => setProgressSettings({ workEndHour: Number(e.target.value) })}
-              />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="salary">日薪 (元)</Label>
-            <Input
-              id="salary"
-              type="number"
-              min={0}
-              value={progressSettings.salary}
-              onChange={(e) => setProgressSettings({ salary: Number(e.target.value) })}
-            />
-            <p className="text-sm text-muted-foreground">
-              用于计算工作时段内已赚取的金额
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

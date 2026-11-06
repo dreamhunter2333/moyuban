@@ -4,12 +4,14 @@ import LZString from 'lz-string';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { QRCodeSVG } from 'qrcode.react';
-import { Copy, Check, Share2, Edit3, Eye, ArrowLeft } from 'lucide-react';
+import { Share2, Edit3, Eye, ArrowLeft } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useClipboard, useIsMobile } from '@/hooks';
+import { PageHeading } from '@/components/page-heading';
+import { CopyButton } from '@/components/copy-button';
 
 type ContentType = 'text' | 'html' | 'markdown';
 
@@ -89,33 +91,37 @@ export function ShareToolPage() {
 
   return (
     <div className="page-content space-y-6">
-      <div className="flex items-center gap-3">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate('/tools')}
-          aria-label="返回工具列表"
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
-        <h1 className="text-xl sm:text-2xl font-semibold tracking-tight flex-1">分享工具</h1>
-        <Button
-          variant="outline"
-          onClick={() => setIsEditing(!isEditing)}
-        >
-          {isEditing ? (
-            <>
-              <Eye className="h-4 w-4 mr-2" />
-              预览
-            </>
-          ) : (
-            <>
-              <Edit3 className="h-4 w-4 mr-2" />
-              编辑
-            </>
-          )}
-        </Button>
-      </div>
+      <PageHeading
+        title="分享工具"
+        leading={
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate('/tools')}
+            aria-label="返回工具列表"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+        }
+        actions={
+          <Button
+            variant="outline"
+            onClick={() => setIsEditing(!isEditing)}
+          >
+            {isEditing ? (
+              <>
+                <Eye className="h-4 w-4 mr-2" />
+                预览
+              </>
+            ) : (
+              <>
+                <Edit3 className="h-4 w-4 mr-2" />
+                编辑
+              </>
+            )}
+          </Button>
+        }
+      />
 
       <Card>
         <CardHeader>
@@ -123,7 +129,7 @@ export function ShareToolPage() {
         </CardHeader>
         <CardContent>
           <Tabs value={contentType} onValueChange={(v) => setContentType(v as ContentType)}>
-            <TabsList className="grid h-auto w-full grid-cols-3">
+            <TabsList aria-label="内容类型" className="grid w-full grid-cols-3 group-data-horizontal/tabs:h-auto">
               <TabsTrigger value="text" className="min-h-11">纯文本</TabsTrigger>
               <TabsTrigger value="html" className="min-h-11">HTML</TabsTrigger>
               <TabsTrigger value="markdown" className="min-h-11">Markdown</TabsTrigger>
@@ -146,7 +152,7 @@ export function ShareToolPage() {
               onChange={(e) => setContent(e.target.value)}
               placeholder="输入要分享的内容..."
               rows={10}
-              className="font-mono"
+              className="min-h-64 font-mono"
             />
           ) : (
             <div className="min-h-[200px]">
@@ -168,9 +174,7 @@ export function ShareToolPage() {
                 生成分享链接
               </Button>
               {shareUrl && (
-                <Button variant="outline" onClick={() => copy(shareUrl)} aria-label={copied ? '分享链接已复制' : '复制分享链接'}>
-                  {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                </Button>
+                <CopyButton copied={copied} onClick={() => copy(shareUrl)} label="复制分享链接" copiedLabel="分享链接已复制" />
               )}
             </div>
             {shareUrl && (

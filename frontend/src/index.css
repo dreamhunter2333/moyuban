@@ -131,11 +131,13 @@ button:disabled { cursor: not-allowed; }
 .workspace-footer a { text-underline-offset: 0.2em; }
 .workspace-footer a:hover { color: var(--primary); text-decoration: underline; }
 .page-content { min-width: 0; }
-.page-heading { margin-bottom: 1.75rem; }
+.page-heading { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.75rem; }
+.page-heading-main { display: flex; align-items: flex-start; gap: 0.75rem; flex: 1 1 10rem; min-width: 0; }
+.page-heading-main > button { flex-shrink: 0; }
+.page-heading-copy { min-width: 0; padding-block: 0.25rem; }
+.page-heading-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-left: auto; }
 .page-heading h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.025em; line-height: 1.5; margin: 0; }
 .page-heading p { color: var(--muted-foreground); font-size: 0.875rem; line-height: 1.8; margin-top: 0.5rem; }
-.tool-heading { display: flex; align-items: flex-start; gap: 0.75rem; }
-.tool-heading > button { flex-shrink: 0; }
 .tool-surface { min-height: 24rem; }
 .home-layout { display: grid; align-items: start; gap: 2rem; min-width: 0; }
 .home-page { min-width: 0; padding: 1.25rem; border: 1px solid var(--border); border-radius: 1rem; background: var(--card); }
