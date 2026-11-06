@@ -1,57 +1,59 @@
 ---
 name: "摸鱼办 · 日常索引"
-description: "浅鼠尾草导航、米白工作区与松绿操作构成的中文日常工具界面。"
+description: "暖白导航、暖白工作区与哔哩粉操作构成的中文日常工具界面。"
 colors:
-  background: "#f7f8f3"
-  foreground: "#24332e"
-  card: "#fdfefa"
-  card-foreground: "#24332e"
-  popover: "#fdfefa"
-  popover-foreground: "#24332e"
-  primary: "#205b49"
-  primary-foreground: "#f8fcf9"
-  secondary: "#e8efe7"
-  secondary-foreground: "#345345"
-  muted: "#edf1ea"
-  muted-foreground: "#617166"
-  accent: "#dce9df"
-  accent-foreground: "#345345"
+  background: "#fcfaf6"
+  foreground: "#37312e"
+  card: "#fffefd"
+  card-foreground: "#37312e"
+  popover: "#fffefd"
+  popover-foreground: "#37312e"
+  primary: "#fb7299"
+  primary-foreground: "#351020"
+  secondary: "#eaf4fa"
+  secondary-foreground: "#28536b"
+  muted: "#f3efe8"
+  muted-foreground: "#756b60"
+  accent: "#fce9ee"
+  accent-foreground: "#7a3a54"
   destructive: "#b42332"
   destructive-foreground: "#fffdf9"
-  border: "#d5dfd5"
-  input: "#819489"
-  ring: "#205b49"
+  border: "#e3dcd1"
+  input: "#968777"
+  ring: "#1687b3"
   success: "#267045"
   warning: "#85551b"
-  sidebar: "#e7eee4"
-  sidebar-foreground: "#355043"
-  sidebar-accent: "#d7e3d6"
-  sidebar-border: "#cfddcc"
-  dark-background: "#111a17"
-  dark-foreground: "#e3ece5"
-  dark-card: "#19251f"
-  dark-card-foreground: "#e3ece5"
-  dark-popover: "#213028"
-  dark-popover-foreground: "#e3ece5"
-  dark-primary: "#91cdb7"
-  dark-primary-foreground: "#10291f"
-  dark-secondary: "#26382e"
-  dark-secondary-foreground: "#e3ece5"
-  dark-muted: "#223229"
-  dark-muted-foreground: "#a7b9ac"
-  dark-accent: "#304a3b"
-  dark-accent-foreground: "#e3ece5"
+  sidebar: "#f3eee6"
+  sidebar-foreground: "#50463d"
+  sidebar-accent: "#e7f1f6"
+  sidebar-border: "#e3dcd1"
+  dark-background: "#242321"
+  dark-foreground: "#f1e3c2"
+  dark-card: "#2d2b28"
+  dark-card-foreground: "#f1e3c2"
+  dark-popover: "#35322d"
+  dark-popover-foreground: "#f1e3c2"
+  dark-primary: "#fb7299"
+  dark-primary-foreground: "#351020"
+  dark-secondary: "#303f49"
+  dark-secondary-foreground: "#acd9ec"
+  dark-muted: "#35322e"
+  dark-muted-foreground: "#c1b397"
+  dark-accent: "#48333d"
+  dark-accent-foreground: "#f4c6d4"
   dark-destructive: "#ff9da3"
   dark-destructive-foreground: "#2c171c"
-  dark-border: "#34483b"
-  dark-input: "#738d7c"
-  dark-ring: "#91cdb7"
-  dark-success: "#8dcba0"
-  dark-warning: "#e1ba79"
-  dark-sidebar: "#17251d"
-  dark-sidebar-foreground: "#d2e2d5"
-  dark-sidebar-accent: "#293e30"
-  dark-sidebar-border: "#314735"
+  dark-border: "#4c463e"
+  dark-input: "#a19480"
+  dark-ring: "#e6c889"
+  dark-success: "#78bc9f"
+  dark-warning: "#e6c889"
+  dark-sidebar: "#292723"
+  dark-sidebar-foreground: "#e8d8b7"
+  dark-sidebar-accent: "#39424a"
+  dark-sidebar-border: "#4b463e"
+  link: "#087ba5"
+  dark-link: "#79cef0"
 typography:
   headline:
     fontFamily: "\"Noto Serif SC\", \"Noto Serif CJK SC\", \"Songti SC\", SimSun, serif"
@@ -171,9 +173,9 @@ components:
 
 **Creative North Star: "日常索引"**
 
-以浅鼠尾草导航承载稳定的应用入口，以近白工作区承载每日信息和实际工具。深墨绿文字、宋体标题和松绿操作提供报刊索引的秩序；表单保持标准 shadcn 控件的清晰边界与熟悉行为。
+以暖白导航承载稳定的应用入口，以近白工作区承载每日信息和实际工具。暖墨灰文字、宋体标题和哔哩粉操作提供报刊索引的秩序；表单保持标准 shadcn 控件的清晰边界与熟悉行为。
 
-密度来自分隔行、紧凑说明和一致留白，层级来自颜色与排版。深色主题保留相同语义和布局，只切换到墨绿黑底、灰绿表面与浅薄荷绿操作。实现代码是本记录的视觉依据，方向探索 HTML 不是批准效果图。
+密度来自分隔行、紧凑说明和一致留白，层级来自颜色与排版。深色主题保留相同语义和布局，使用较亮的暖炭黑底、暖灰表面与暖黄文字，蓝粉色继续承担强调。实现代码是本记录的视觉依据，方向探索 HTML 不是批准效果图。
 
 **Key Characteristics:**
 
@@ -185,24 +187,24 @@ components:
 
 ## Colors
 
-暖纸色与深墨绿色承担阅读，松绿承担操作；浅深主题的全部实际 CSS 颜色在 frontmatter 中逐一记录，`dark-` 前缀对应 `.dark` 的同名变量。
+暖纸色与暖墨灰色承担阅读，哔哩粉承担操作；浅深主题的全部实际 CSS 颜色在 frontmatter 中逐一记录，`dark-` 前缀对应 `.dark` 的同名变量。
 
 ### Primary
 
-- **松绿操作 / 浅薄荷绿操作**（primary / dark-primary）：主按钮、当前导航、链接、焦点、文字选区与光标。反色文字使用 primary-foreground。
+- **哔哩粉操作**（primary / dark-primary）：主按钮、当前导航、文字选区与光标；搭配深色文字 primary-foreground。链接采用独立蓝色 link；焦点 ring 在亮色为蓝色、暗色为暖黄。
 - **异常红**（destructive）：错误文字、无效字段边界和错误提示的浅色背景；不是常规强调色。
 
 ### Secondary
 
-- **浅绿辅助**（secondary、accent）：次操作和交互底色；secondary-foreground / accent-foreground 承担对应文字。
+- **蓝 / 粉辅助**（secondary、accent）：蓝色承担次操作，浅粉或深粉灰承担局部强调底色；secondary-foreground / accent-foreground 承担对应文字。
 - **状态绿 / 琥珀**（success、warning）：现有语义状态变量，供有明确状态含义的反馈使用，不作为品牌装饰色。
 
 ### Neutral
 
-- **暖纸 / 墨绿黑**（background）：应用工作区背景。
-- **近白纸 / 灰绿纸**（card、popover）：内容容器和浮层，分别配套各自 foreground。
-- **深墨绿 / 浅灰绿文字**（foreground）：正文与标题；muted-foreground 承担说明，muted 承担轻底色和骨架。
-- **鼠尾草绿导航**（sidebar）：专用导航表面，sidebar-foreground、sidebar-accent、sidebar-border 分别承担文字、悬停和分隔。
+- **暖纸 / 暖炭黑**（background）：应用工作区背景。
+- **近白纸 / 暖灰纸**（card、popover）：内容容器和浮层，分别配套各自 foreground。
+- **暖墨灰 / 浅暖灰文字**（foreground）：正文与标题；muted-foreground 承担说明，muted 承担轻底色和骨架。
+- **暖灰导航**（sidebar）：专用导航表面，sidebar-foreground、sidebar-accent、sidebar-border 分别承担文字、悬停和分隔。
 - **纸边 / 字段边**（border、input）：内容分隔比字段描边更轻；ring 指示键盘定位。
 
 **The Semantic Theme Rule.** 新增界面使用语义颜色变量；浅深主题共同切换文字、表面、边界与操作色。
@@ -258,7 +260,7 @@ components:
 
 ### Buttons
 
-主操作为松绿填充与反色文字，默认高度（2.75rem）、水平内边距（1rem）、lg 圆角。悬停主色透明度（80%）；outline 使用页面底色与边界，悬停使用 muted；secondary 使用浅绿底，悬停混合 foreground（5%）；ghost 常态透明。小按钮（2.25rem），普通图标按钮为（2.75rem）方形。禁用不可交互且透明度（50%），无效状态使用 destructive 边界和环。组件库含 destructive/link 变体，当前核心页面主要使用 default、outline、secondary、ghost。
+主操作为哔哩粉填充与反色文字，默认高度（2.75rem）、水平内边距（1rem）、lg 圆角。悬停主色透明度（80%）；outline 使用页面底色与边界，悬停使用 muted；secondary 使用浅蓝底，悬停混合 foreground（5%）；ghost 常态透明。小按钮（2.25rem），普通图标按钮为（2.75rem）方形。禁用不可交互且透明度（50%），无效状态使用 destructive 边界和环。组件库含 destructive/link 变体，当前核心页面主要使用 default、outline、secondary、ghost。
 
 ### Chips
 
@@ -310,6 +312,8 @@ Markdown 只施加通用 h1/h2/h3、链接、表格、代码、引用和媒体�
 - **Don't** 给分享预览额外嵌套第二层卡片。
 - **Don't** 将单页遗留阈值色、方向草图或未实现的状态提升为全局规范。
 
-未规范化、未修复：进度页现存 emerald-600 / sky-600 / rose-600（深色为对应 400） 阈值配色只属于该页面的既有行为，不成为全局品牌或状态色；阈值与计算逻辑保持不变。未发现需写成规范的 craft-floor 拒绝项。
+进度页用蓝、暖黄、哔哩粉区分阈值，并保留文字百分比；阈值与计算逻辑保持不变。该配色不改变成功或错误状态的语义。
 
 依据：`frontend/src/index.css`、共享导航与工具布局、`components/ui`、首页/工具/进度/设置/分享源码、字体 README/OFL。共享标题与复制控件已按生产构建检查 320 / 390 / 1440px 布局和键盘、复制、预览、设置交互。
+
+配色依据：用户指定暖白亮色、偏亮的暖炭黑暗色、暖黄与蓝粉强调。哔哩粉采用 #FB7299，蓝色强调采用 #00AEEC 的可读变体；深色表面分层参考 [Material UI dark mode](https://mui.com/material-ui/customization/dark-mode/)。链接使用独立蓝色 token，避免粉色小字在暖白上对比不足。

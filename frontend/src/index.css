@@ -13,60 +13,62 @@
 }
 
 :root {
-  --background: #f7f8f3;
-  --foreground: #24332e;
-  --card: #fdfefa;
-  --card-foreground: #24332e;
-  --popover: #fdfefa;
-  --popover-foreground: #24332e;
-  --primary: #205b49;
-  --primary-foreground: #f8fcf9;
-  --secondary: #e8efe7;
-  --secondary-foreground: #345345;
-  --muted: #edf1ea;
-  --muted-foreground: #617166;
-  --accent: #dce9df;
-  --accent-foreground: #345345;
+  --background: #fcfaf6;
+  --foreground: #37312e;
+  --card: #fffefd;
+  --card-foreground: #37312e;
+  --popover: #fffefd;
+  --popover-foreground: #37312e;
+  --primary: #fb7299;
+  --primary-foreground: #351020;
+  --secondary: #eaf4fa;
+  --secondary-foreground: #28536b;
+  --muted: #f3efe8;
+  --muted-foreground: #756b60;
+  --accent: #fce9ee;
+  --accent-foreground: #7a3a54;
   --destructive: #b42332;
   --destructive-foreground: #fffdf9;
-  --border: #d5dfd5;
-  --input: #819489;
-  --ring: #205b49;
+  --border: #e3dcd1;
+  --input: #968777;
+  --ring: #1687b3;
   --success: #267045;
   --warning: #85551b;
-  --sidebar: #e7eee4;
-  --sidebar-foreground: #355043;
-  --sidebar-accent: #d7e3d6;
-  --sidebar-border: #cfddcc;
+  --sidebar: #f3eee6;
+  --sidebar-foreground: #50463d;
+  --sidebar-accent: #e7f1f6;
+  --sidebar-border: #e3dcd1;
   --radius: 0.75rem;
+  --link: #087ba5;
 }
 
 .dark {
-  --background: #111a17;
-  --foreground: #e3ece5;
-  --card: #19251f;
-  --card-foreground: #e3ece5;
-  --popover: #213028;
-  --popover-foreground: #e3ece5;
-  --primary: #91cdb7;
-  --primary-foreground: #10291f;
-  --secondary: #26382e;
-  --secondary-foreground: #e3ece5;
-  --muted: #223229;
-  --muted-foreground: #a7b9ac;
-  --accent: #304a3b;
-  --accent-foreground: #e3ece5;
+  --background: #242321;
+  --foreground: #f1e3c2;
+  --card: #2d2b28;
+  --card-foreground: #f1e3c2;
+  --popover: #35322d;
+  --popover-foreground: #f1e3c2;
+  --primary: #fb7299;
+  --primary-foreground: #351020;
+  --secondary: #303f49;
+  --secondary-foreground: #acd9ec;
+  --muted: #35322e;
+  --muted-foreground: #c1b397;
+  --accent: #48333d;
+  --accent-foreground: #f4c6d4;
   --destructive: #ff9da3;
   --destructive-foreground: #2c171c;
-  --border: #34483b;
-  --input: #738d7c;
-  --ring: #91cdb7;
-  --success: #8dcba0;
-  --warning: #e1ba79;
-  --sidebar: #17251d;
-  --sidebar-foreground: #d2e2d5;
-  --sidebar-accent: #293e30;
-  --sidebar-border: #314735;
+  --border: #4c463e;
+  --input: #a19480;
+  --ring: #e6c889;
+  --success: #78bc9f;
+  --warning: #e6c889;
+  --sidebar: #292723;
+  --sidebar-foreground: #e8d8b7;
+  --sidebar-accent: #39424a;
+  --sidebar-border: #4b463e;
+  --link: #79cef0;
 }
 
 @theme inline {
@@ -78,6 +80,7 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
+  --color-link: var(--link);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -129,7 +132,7 @@ button:disabled { cursor: not-allowed; }
 .workspace-main { flex: 1; width: 100%; min-width: 0; max-width: 88rem; padding: 1.5rem 1rem; margin-inline: auto; }
 .workspace-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1.5rem; margin-inline: 1rem; padding-block: 1.25rem; border-top: 1px solid var(--border); color: var(--muted-foreground); font-size: 0.75rem; }
 .workspace-footer a { text-underline-offset: 0.2em; }
-.workspace-footer a:hover { color: var(--primary); text-decoration: underline; }
+.workspace-footer a:hover { color: var(--link); text-decoration: underline; }
 .page-content { min-width: 0; }
 .page-heading { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.75rem; }
 .page-heading-main { display: flex; align-items: flex-start; gap: 0.75rem; flex: 1 1 10rem; min-width: 0; }
@@ -144,7 +147,7 @@ button:disabled { cursor: not-allowed; }
 .quick-tools { min-width: 0; }
 .section-heading { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-height: 2.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
 .section-heading h2 { font-size: 1rem; font-weight: 600; }
-.section-heading a { display: inline-flex; align-items: center; gap: 0.375rem; min-height: 2.75rem; font-size: 0.75rem; color: var(--primary); }
+.section-heading a { display: inline-flex; align-items: center; gap: 0.375rem; min-height: 2.75rem; font-size: 0.75rem; color: var(--link); }
 .section-heading svg, .preferences-link svg { width: 0.875rem; height: 0.875rem; flex-shrink: 0; }
 .quick-tools ul { margin: 0; padding: 0; list-style: none; }
 .tool-index-link { display: flex; align-items: center; gap: 0.875rem; padding: 1.25rem 0.5rem; min-width: 0; min-height: 5.75rem; border-bottom: 1px solid var(--border); border-radius: 0.25rem; transition: background-color 150ms, color 150ms; }
@@ -154,9 +157,9 @@ button:disabled { cursor: not-allowed; }
 .tool-index-link > span { min-width: 0; }
 .tool-index-link strong { display: block; font-size: 0.875rem; font-weight: 550; }
 .tool-index-link small { display: block; margin-top: 0.375rem; font-size: 0.8125rem; line-height: 1.7; color: var(--muted-foreground); }
-.tool-index-link .tool-index-arrow { margin-left: auto; width: 1rem; height: 1rem; color: var(--primary); }
+.tool-index-link .tool-index-arrow { margin-left: auto; width: 1rem; height: 1rem; color: var(--link); }
 .preferences-link { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-height: 2.75rem; margin-top: 1.5rem; padding-inline: 0.5rem; color: var(--muted-foreground); font-size: 0.8125rem; }
-.preferences-link:hover { color: var(--primary); }
+.preferences-link:hover { color: var(--link); }
 .tools-index { padding: 0.25rem 1.25rem; border: 1px solid var(--border); border-radius: 1rem; background: var(--card); }
 .tools-index .tool-index-link { padding-block: 1.75rem; }
 .tools-index .tool-index-link:last-child { border-bottom: 0; }
@@ -167,7 +170,7 @@ button:disabled { cursor: not-allowed; }
   --tw-prose-body: var(--foreground);
   --tw-prose-headings: var(--foreground);
   --tw-prose-lead: var(--muted-foreground);
-  --tw-prose-links: var(--primary);
+  --tw-prose-links: var(--link);
   --tw-prose-bold: var(--foreground);
   --tw-prose-counters: var(--muted-foreground);
   --tw-prose-bullets: var(--muted-foreground);
