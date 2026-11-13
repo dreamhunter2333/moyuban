@@ -1,19 +1,14 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import { TOOLS } from '@/lib/tools';
 import { PageHeading } from '@/components/page-heading';
+import { ToolLink } from '@/components/tool-link';
 
 export function ToolsPage() {
   return (
-    <div className="page-content">
-      <PageHeading title="工具集" description="编码、生成、分享，随手打开就能用。" />
+    <div className="page-content tool-workspace">
+      <PageHeading title="工具集" />
       <div className="tools-index">
-        {TOOLS.map(({ id, title, description, icon: Icon, path }) => (
-          <Link key={id} to={path} className="tool-index-link">
-            <Icon aria-hidden="true" />
-            <span><strong>{title}</strong><small>{description}</small></span>
-            <ArrowRight className="tool-index-arrow" aria-hidden="true" />
-          </Link>
+        {TOOLS.map((tool) => (
+          <ToolLink key={tool.id} tool={tool} />
         ))}
       </div>
     </div>

@@ -22,8 +22,8 @@ export default defineConfig({
         name: '摸鱼办',
         short_name: '摸鱼办',
         description: '摸鱼办 - 一个集成各种工具的在线网站',
-        theme_color: '#fcfaf6',
-        background_color: '#fcfaf6',
+        theme_color: '#f9f9f9',
+        background_color: '#f9f9f9',
         display: 'standalone',
         icons: [
           {

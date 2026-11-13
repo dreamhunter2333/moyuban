@@ -1,25 +1,23 @@
 import { useState, useMemo } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import LZString from 'lz-string';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { QRCodeSVG } from 'qrcode.react';
-import { Share2, Edit3, Eye, ArrowLeft } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Share2, Edit3, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useClipboard, useIsMobile } from '@/hooks';
-import { PageHeading } from '@/components/page-heading';
+import { ToolLayout } from '@/components/tool-layout';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { CopyButton } from '@/components/copy-button';
+import { MarkdownContent } from '@/components/markdown-content';
 
 type ContentType = 'text' | 'html' | 'markdown';
 
 export function ShareToolPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
 
-  // Parse initial state only once on mount using lazy initialization
   const [content, setContent] = useState(() => {
     const encodedContent = searchParams.get('content');
     if (encodedContent) {
@@ -45,6 +43,7 @@ export function ShareToolPage() {
     return !encodedContent;
   });
 
+  const [showShare, setShowShare] = useState(false);
   const { copied, copy } = useClipboard();
   const isMobile = useIsMobile();
 
@@ -64,6 +63,7 @@ export function ShareToolPage() {
       content: compressed,
       contentType,
     });
+    setShowShare(true);
     copy(shareUrl);
   };
 
@@ -77,11 +77,7 @@ export function ShareToolPage() {
           />
         );
       case 'markdown':
-        return (
-          <div className="markdown-content">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
-          </div>
-        );
+        return <MarkdownContent>{content}</MarkdownContent>;
       default:
         return <pre className="whitespace-pre-wrap font-mono text-sm">{content}</pre>;
     }
@@ -90,106 +86,55 @@ export function ShareToolPage() {
   const qrSize = isMobile ? Math.min(window.innerWidth - 80, 200) : 200;
 
   return (
-    <div className="page-content space-y-6">
-      <PageHeading
-        title="分享工具"
-        leading={
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate('/tools')}
-            aria-label="返回工具列表"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        }
-        actions={
-          <Button
-            variant="outline"
-            onClick={() => setIsEditing(!isEditing)}
-          >
-            {isEditing ? (
-              <>
-                <Eye className="h-4 w-4 mr-2" />
-                预览
-              </>
-            ) : (
-              <>
-                <Edit3 className="h-4 w-4 mr-2" />
-                编辑
-              </>
-            )}
-          </Button>
-        }
-      />
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">内容类型</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Tabs value={contentType} onValueChange={(v) => setContentType(v as ContentType)}>
-            <TabsList aria-label="内容类型" className="grid w-full grid-cols-3 group-data-horizontal/tabs:h-auto">
-              <TabsTrigger value="text" className="min-h-11">纯文本</TabsTrigger>
-              <TabsTrigger value="html" className="min-h-11">HTML</TabsTrigger>
-              <TabsTrigger value="markdown" className="min-h-11">Markdown</TabsTrigger>
-            </TabsList>
-          </Tabs>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">
-            {isEditing ? '编辑内容' : '预览'}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {isEditing ? (
+    <ToolLayout
+      title="分享工具"
+      actions={
+        <Button variant="outline" onClick={() => setIsEditing(!isEditing)}>
+          {isEditing ? <Eye aria-hidden="true" /> : <Edit3 aria-hidden="true" />}
+          {isEditing ? '预览' : '编辑'}
+        </Button>
+      }
+    >
+      <div className="space-y-4">
+        <Tabs value={contentType} onValueChange={(v) => setContentType(v as ContentType)}>
+          <TabsList aria-label="内容类型" className="grid w-full grid-cols-3 group-data-horizontal/tabs:h-auto">
+            <TabsTrigger value="text" className="min-h-11">纯文本</TabsTrigger>
+            <TabsTrigger value="html" className="min-h-11">HTML</TabsTrigger>
+            <TabsTrigger value="markdown" className="min-h-11">Markdown</TabsTrigger>
+          </TabsList>
+        </Tabs>
+        {isEditing ? (
+          <div className="space-y-2">
+            <Label htmlFor="share-content">分享内容</Label>
             <Textarea
-              aria-label="要分享的内容"
+              id="share-content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="输入要分享的内容..."
-              rows={10}
-              className="min-h-64 font-mono"
+              rows={6}
+              className="min-h-40 font-mono"
             />
-          ) : (
-            <div className="min-h-[200px]">
-              {content ? renderContent() : <span className="text-muted-foreground">暂无内容</span>}
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {content && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">分享</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex gap-2">
-              <Button onClick={handleShare} className="flex-1">
-                <Share2 className="h-4 w-4 mr-2" />
-                生成分享链接
-              </Button>
-              {shareUrl && (
-                <CopyButton copied={copied} onClick={() => copy(shareUrl)} label="复制分享链接" copiedLabel="分享链接已复制" />
-              )}
-            </div>
-            {shareUrl && (
+          </div>
+        ) : (
+          <div>
+            {content ? renderContent() : <span className="text-muted-foreground">暂无内容</span>}
+          </div>
+        )}
+        {content && (
+          <div className="space-y-3">
+            <Button onClick={handleShare}><Share2 aria-hidden="true" />{copied ? '链接已复制' : '生成分享链接'}</Button>
+            {showShare && (
               <>
-                <div className="p-3 bg-muted rounded-md">
-                  <p className="text-sm font-mono break-all">{shareUrl}</p>
+                <div className="flex gap-2">
+                  <Input value={shareUrl} readOnly aria-label="分享链接" className="min-w-0 font-mono" />
+                  <CopyButton copied={copied} onClick={() => copy(shareUrl)} label="复制分享链接" copiedLabel="分享链接已复制" />
                 </div>
-                <div className="flex justify-center p-4 bg-white rounded-md">
-                  <QRCodeSVG value={shareUrl} size={qrSize} />
-                </div>
+                <div className="w-fit rounded-md bg-white p-3"><QRCodeSVG value={shareUrl} size={qrSize} /></div>
               </>
             )}
-          </CardContent>
-        </Card>
-      )}
-    </div>
+          </div>
+        )}
+      </div>
+    </ToolLayout>
   );
 }

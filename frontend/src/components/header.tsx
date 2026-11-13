@@ -21,7 +21,7 @@ export function Header() {
   const navigation = (
     <nav className="navigation-links" aria-label="主导航">
       {navItems.map(({ path, label, icon: Icon }) => (
-        <Button key={path} asChild variant="ghost" className="navigation-link">
+        <Button key={path} asChild variant="ghost" className="navigation-link justify-start gap-3">
           <NavLink to={path} end={path === '/'} onClick={() => setMenuOpen(false)}>
             <Icon aria-hidden="true" />
             {label}
@@ -34,7 +34,7 @@ export function Header() {
   return (
     <header className="app-navigation">
       <Link to="/" className="navigation-brand" aria-label="摸鱼办首页">
-        <Fish className="size-7" aria-hidden="true" />
+        <span className="brand-mark"><Fish className="size-7" aria-hidden="true" /></span>
         <span>摸鱼办</span>
       </Link>
       {!isMobile && navigation}
@@ -49,13 +49,13 @@ export function Header() {
           size={isMobile ? 'icon' : 'default'}
           onClick={toggleTheme}
           aria-label={isDark ? '切换浅色模式' : '切换深色模式'}
-          className="navigation-action"
+          className={`navigation-action ${isMobile ? '' : 'justify-start gap-3'}`}
         >
           {isDark ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
           {!isMobile && <span>{isDark ? '浅色模式' : '深色模式'}</span>}
         </Button>
         {!isMobile && (
-          <Button asChild variant="ghost" className="navigation-action">
+          <Button asChild variant="ghost" className="navigation-action justify-start gap-3">
             <a href="https://github.com/dreamhunter2333/moyuban" target="_blank" rel="noopener noreferrer">
               <CodeXml aria-hidden="true" />
               GitHub

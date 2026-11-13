@@ -4,21 +4,23 @@ import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { PageHeading } from '@/components/page-heading';
+import { cn } from '@/lib/utils';
 
 interface ToolLayoutProps {
   title: string;
-  description?: string;
+  className?: string;
+  actions?: ReactNode;
   children: ReactNode;
 }
 
-export function ToolLayout({ title, description, children }: ToolLayoutProps) {
+export function ToolLayout({ title, className, actions, children }: ToolLayoutProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="page-content">
+    <div className={cn('page-content tool-workspace', className)}>
       <PageHeading
         title={title}
-        description={description}
+        actions={actions}
         leading={
           <Button
             variant="ghost"
@@ -30,7 +32,7 @@ export function ToolLayout({ title, description, children }: ToolLayoutProps) {
           </Button>
         }
       />
-      <Card className="tool-surface">
+      <Card>
         <CardContent>
           {children}
         </CardContent>

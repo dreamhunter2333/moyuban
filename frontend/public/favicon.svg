@@ -1,8 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- 圆角矩形背景 -->
-  <rect width="512" height="512" rx="92" ry="92" fill="#0ea5e9"/>
+  <rect width="512" height="512" rx="92" ry="92" fill="#0d74ce"/>
 
-  <!-- 鱼图标 (居中，白色，使用完整的 Lucide Fish SVG) -->
   <g transform="translate(256, 256) scale(10)">
     <g transform="translate(-12, -12)" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path d="M6.5 12c.94-3.46 4.94-6 8.5-6 3.56 0 6.06 2.54 7 6-.94 3.47-3.44 6-7 6s-7.56-2.53-8.5-6Z"/>

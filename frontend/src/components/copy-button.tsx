@@ -10,8 +10,9 @@ interface CopyButtonProps extends Omit<ComponentProps<typeof Button>, 'children'
 
 export function CopyButton({ copied, label, copiedLabel, variant = 'outline', ...props }: CopyButtonProps) {
   return (
-    <Button variant={variant} size="icon" aria-label={copied ? copiedLabel : label} {...props}>
+    <Button type="button" variant={variant} size="icon" aria-label={copied ? copiedLabel : label} title={copied ? copiedLabel : label} {...props}>
       {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+      <span className="sr-only" role="status">{copied ? copiedLabel : ''}</span>
     </Button>
   );
 }

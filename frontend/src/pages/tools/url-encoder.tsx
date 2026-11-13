@@ -1,69 +1,28 @@
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { ToolLayout } from '@/components/tool-layout';
-import { useClipboard } from '@/hooks';
-import { CopyButton } from '@/components/copy-button';
+import { TextConverter } from '@/components/text-converter';
 
 export function UrlEncoderPage() {
-  const [input, setInput] = useState('');
-  const [output, setOutput] = useState('');
-  const { copied, copy } = useClipboard();
-
-  const encode = (useComponent: boolean) => {
-    try {
-      setOutput(useComponent ? encodeURIComponent(input) : encodeURI(input));
-    } catch (err) {
-      setOutput(`编码失败: ${err}`);
-    }
-  };
-
-  const decode = (useComponent: boolean) => {
-    try {
-      setOutput(useComponent ? decodeURIComponent(input) : decodeURI(input));
-    } catch (err) {
-      setOutput(`解码失败: ${err}`);
-    }
-  };
+  const [component, setComponent] = useState(true);
 
   return (
-    <ToolLayout title="URL 编码/解码" description="URL 编码解码工具">
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="url-input">输入</Label>
-          <Textarea
-            id="url-input"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="输入需要编码/解码的内容..."
-            rows={5}
-          />
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Button variant="secondary" onClick={() => encode(false)}>
-            encodeURI
-          </Button>
-          <Button variant="secondary" onClick={() => decode(false)}>
-            decodeURI
-          </Button>
-          <Button variant="secondary" onClick={() => encode(true)}>
-            encodeURIComponent
-          </Button>
-          <Button variant="secondary" onClick={() => decode(true)}>
-            decodeURIComponent
-          </Button>
-        </div>
-        {output && (
-          <div className="space-y-2">
-            <Label htmlFor="url-output">输出</Label>
-            <div className="flex gap-2">
-              <Textarea id="url-output" value={output} readOnly rows={5} className="font-mono" />
-              <CopyButton copied={copied} onClick={() => copy(output)} label="复制结果" copiedLabel="结果已复制" className="shrink-0" />
-            </div>
-          </div>
-        )}
-      </div>
-    </ToolLayout>
+    <TextConverter
+      title="URL 编码/解码"
+      encodedLabel="URL 编码文本"
+      encode={component ? encodeURIComponent : encodeURI}
+      decode={component ? decodeURIComponent : decodeURI}
+      options={
+        <fieldset className="flex flex-wrap gap-x-5">
+          <legend className="sr-only">编码范围</legend>
+          <label className="flex min-h-12 cursor-pointer items-center gap-2 text-sm">
+            <input type="radio" name="url-mode" value="component" checked={component} onChange={() => setComponent(true)} />
+            参数值
+          </label>
+          <label className="flex min-h-12 cursor-pointer items-center gap-2 text-sm">
+            <input type="radio" name="url-mode" value="uri" checked={!component} onChange={() => setComponent(false)} />
+            完整 URL
+          </label>
+        </fieldset>
+      }
+    />
   );
 }
